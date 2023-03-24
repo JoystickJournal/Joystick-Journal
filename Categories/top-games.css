@@ -1,0 +1,8 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(images/AerologicaRegular-K7day.ttf);
+  }
+
+  #logo{
+    font-family:myFirstFont;
+  }

@@ -5,4 +5,14 @@
 
   #logo{
     font-family:myFirstFont;
+    color: white;
   }
+  body {
+    background-color: black;
+  }
+
+  .navbar {
+    background-color: black;
+    opacity: 90%;
+  }
+

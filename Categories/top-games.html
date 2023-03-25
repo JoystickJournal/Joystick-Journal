@@ -40,7 +40,7 @@
             </ul>
             <form class="form-inline d-flex">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0 mx-3" id="searchBar" type="submit" data-bs-target="#exampleModal" data-bs-toggle="modal">Search</button>
               </form>
         </div>
     </div>
@@ -51,28 +51,28 @@
         <div class="text-center text-white d-flex flex-column">
             <h1 class="display-4 fw-bolder mb-5">Top Games</h1>
             <section class="carousel-section">
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
+                      <div class="carousel-item active" data-bs-interval="10000">
                         <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000000964/811461b8d1cacf1f2da791b478dccfe2a55457780364c3d5a95fbfcdd4c3086f" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>Minecraft</h5>
                           <p>Battle mobs, construct shelter, and explore the landscape—it's all in a day's work when you try to survive and thrive in Survival Mode.</p>
                         </div>
                       </div>
-                      <div class="carousel-item">
+                      <div class="carousel-item" data-bs-interval="10000">
                         <img src="https://cdn1.epicgames.com/offer/e97659b501af4e3981d5430dad170911/EGS_HogwartsLegacy_AvalancheSoftware_S1_2560x1440-2baf3188eb3c1aa248bcc1af6a927b7e" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>Hogwart's Legacy</h5>
                           <p>An immersive, open-world action RPG set in the world first introduced in the Harry Potter books. </p>
                         </div>
                       </div>
-                      <div class="carousel-item">
+                      <div class="carousel-item" data-bs-interval="10000">
                         <img src="https://images.rbxcdn.com/d66ae37d46e00a1ecacfe9531986690a.jpg" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>Roblox</h5>
@@ -97,208 +97,7 @@
     <h1 class="display-4 fw-bolder">Genres</h1>
 </div>
 <!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-12 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card">
 
-                    <!-- Product details-->
-                    <div class="card-body"  style="z-index: 1;">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder text-light" >Action</h5>
-                            <!-- Product price-->
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                        <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                        <div class="collapse text-center" id="collapseExample8">
-                            <p class="card-text fw-bold text-light">An action game is a video game genre that emphasizes physical challenges, including hand–eye coordination and reaction time.</p>
-                            <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                          </div>
-                    </div>
-                    <!-- Product image-->
-                    <div class="card-img-overlay" style="background-image: url('https://hips.hearstapps.com/hmg-prod/images/godofwar-1574805013.jpg'); opacity: 1; pointer-events: none; background-size: cover;"></div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card">
-
-                    <!-- Product details-->
-                    <div class="card-body"  style="z-index: 1;">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder text-light">Adventure</h5>
-                            <!-- Product price-->
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                        <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                        <div class="collapse text-center" id="collapseExample7">
-                            <p class="card-text fw-bold">An adventure game is a video game genre in which the player assumes the role of a protagonist in an interactive story, driven by exploration and/or puzzle-solving. </p>
-                            <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                          </div>
-                    </div>
-                    <!-- Product image-->
-                    <div class="card-img-overlay" style="background-image: url('https://cdn.mos.cms.futurecdn.net/yVKF8Uo5edQsmkH5dFmRDn-970-80.png.webp'); opacity: 1; pointer-events: none; background-size: cover; background-position: center;"></div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card">
-
-                    <!-- Product details-->
-                    <div class="card-body"  style="z-index: 1;">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder text-light">MOBA</h5>
-                            <!-- Product price-->
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                        <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                        <div class="collapse text-center" id="collapseExample6">
-                            <p class="card-text fw-bold text-light">Multiplayer online battle arena is a subgenre of strategy video games in which two teams of players compete against each other on a predefined battlefield.</p>
-                            <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                          </div>
-                    </div>
-                    <!-- Product image-->
-                    <div class="card-img-overlay" style="background-image: url('https://www.leagueoflegends.com/static/open-graph-2e582ae9fae8b0b396ca46ff21fd47a8.jpg'); opacity: 1; pointer-events: none; background-size: cover; background-position: center;"></div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card">
-
-                    <!-- Product details-->
-                    <div class="card-body"  style="z-index: 1;">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder text-light">Strategy</h5>
-                            <!-- Product price-->
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                        <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                        <div class="collapse text-center" id="collapseExample5">
-                            <p class="card-text fw-bold ">Strategy is a major video game genre that emphasizes thinking and planning over direct instant action in order to achieve victory.</p>
-                            <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                          </div>
-                    </div>
-                    <!-- Product image-->
-                    <div class="card-img-overlay" style="background-image: url('https://downloads.2kgames.com/vnbh3gjdfkeit4utey6pdmds12/civ/img/CivilizationVI_keyart_horizontal_thm.jpg'); opacity: 1; pointer-events: none; background-size: cover; background-position: center; "></div>
-                </div>
-            </div>
-                    <!-- Product actions-->
-                    <div class="col mb-5">
-                        <div class="card">
-        
-                            <!-- Product details-->
-                            <div class="card-body"  style="z-index: 1;">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder text-light">Shooters</h5>
-                                    <!-- Product price-->
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                                <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                                <div class="collapse text-center" id="collapseExample4">
-                                    <p class="card-text fw-bold text-light">Shooter video games or shooters are a subgenre of action video games where the focus is almost entirely on the defeat of the character's enemies using the weapons given to the player.</p>
-                                    <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                                  </div>
-                            </div>
-                            <!-- Product image-->
-                            <div class="card-img-overlay" style="background-image: url('https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/images/2021/04/k-1920x1080-featured-image.jpg.adapt.crop191x100.1200w.jpg'); opacity: 1; pointer-events: none; background-size: cover; background-position: center;"></div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-        
-                            <!-- Product details-->
-                            <div class="card-body" style="z-index: 1;">
-                                <div class="text-center text-primary">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder text-light">Co-Op</h5>
-                                    <!-- Product price-->
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                                <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                                <div class="collapse text-center" id="collapseExample3"  style="z-index: 1;">
-                                    <p class="card-text fw-bold">Cooperative video game, often abbreviated as co-op, is a video game that allows players to work together as teammates, usually against one or more non-player character opponents.</p>
-                                    <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                                  </div>
-                            </div>
-                            <!-- Product image-->
-                            <div class="card-img-overlay" style="background-image: url('https://image.api.playstation.com/vulcan/ap/rnd/202012/0815/0Xqi1LgRoEtJ5zlFprpd54Vu.png'); opacity: 0.6; pointer-events: none; background-size: cover;"></div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-        
-                            <!-- Product details-->
-                            <div class="card-body" style="z-index: 1;">
-                                <div class="text-center text-primary">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder text-light">Horror</h5>
-                                    <!-- Product price-->
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer pt-0 border-top-0 bg-transparent h-25"  style="z-index: 1;">
-                                <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample" style="z-index: 1;"><p class="text-light my-0">Definition</p></a></div>
-                                <div class="collapse text-center" id="collapseExample2">
-                                    <p class="card-text fw-bold text-light">A horror game is a video game genre centered on horror fiction and typically designed to scare the player. </p>
-                                    <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                                  </div>
-                            </div>
-                            <!-- Product image-->
-                            <div class="card-img-overlay" style="background-image: url('https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/f/five-nights-at-freddys-switch/hero'); opacity: 1; pointer-events: none; background-size: cover; background-position: center;"></div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                          <!-- Product details-->
-                          <div class="card-body " style="z-index: 1;">
-                            <div class="text-center">
-                              <!-- Product name-->
-                              <h5 class="fw-bolder text-light">Sports</h5>
-                              <!-- Product price-->
-                            </div>
-                          </div>
-                          <!-- Product actions-->
-                          <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-                            <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-                            <div class="collapse text-center"  id="collapseExample"  style="z-index: 1;">
-                              <p class="card-text fw-bold text-dark">A sports video game is a video game that simulates the practice of sports. Most sports have been recreated with a video game, including team sports, track and field, extreme sports, and combat sports. </p>
-                              <a href="#" id="cardButton" class="btn btn-primary">View More</a>
-                            </div>
-                          </div>
-                          <!-- Product image-->
-                          <div class="card-img-overlay" style="background-image: url('https://assets.2k.com/1a6ngf98576c/2RNTmC7iLr6YVlxBSmE4M3/11177cffa2bdbedb226b089c4108726a/NBA23-WEBSITE-PRE_ORDER-HOMPAGE-MODULE2-RETAIL_CAROUSEL-CROSSGEN_EDITION-425x535.jpg'); opacity: 1; pointer-events: none; background-size: cover;"></div>
-                        </div>
-                      </div>
-                      
-
-
-
-
-
-
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</section>
 <!-- Button trigger modal -->
 <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Launch demo modal
@@ -306,35 +105,16 @@
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog modal-fullscreen-md-down">
+      <div class="modal-content  bg-black">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Games</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <img src="https://images.rbxcdn.com/d66ae37d46e00a1ecacfe9531986690a.jpg" class="d-block w-100" alt="...">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-            obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-            nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-            tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-            quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
-            sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
-            recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
-            minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
-            quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
-            fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
-            consequuntur! Commodi minima excepturi repudiandae velit hic maxime
-            doloremque. Quaerat provident commodi consectetur veniam similique ad 
-            earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
-            fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
-            suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
-            modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
-            totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
-            quasi aliquam eligendi, placeat qui corporis!
+        <div class="modal-body  mx-auto px-5">
+          <ul class="list  mx-0 px-0 d-flex flex-column align-items-stretch flex-wrap align-content-around w-100" style="list-style-type: none;">
+
+           </ul>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -342,6 +122,8 @@
       </div>
     </div>
   </div>
+  <div class="row" id="genres"></div>
+  <div id="game-data"></div>
 <!-- Footer-->
 <footer class="py-5">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; JoystickJournal 2023</p></div>

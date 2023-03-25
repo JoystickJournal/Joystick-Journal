@@ -16,3 +16,5 @@
     opacity: 90%;
   }
 
+#hoverCard:hover {
+  transform: scale(1.05) rotate(5deg);}

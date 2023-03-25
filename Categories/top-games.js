@@ -1,11 +1,6 @@
-document.addEventListener('DOMContentLoaded',function(){
-    document.querySelectorAll('#cardButton').forEach(elem => {
-    console.log(elem)
-    elem.setAttribute('data-bs-toggle','modal')
-    elem.setAttribute('data-bs-target','#exampleModal')
-})
-}
-)
+
+
+let count = 10
 
 // Define a function to make the API request and cache the data in local storage
 function fetchGame(gameId) {
@@ -17,7 +12,7 @@ function fetchGame(gameId) {
       return Promise.resolve(cachedGames[gameId]);
     } else {
       // If the game is not stored in the local storage, make the API request
-      const url = `https://api.rawg.io/api/games/${gameId}`;
+      const url = `https://api.rawg.io/api/games/${gameId}?key=` + config.api;
       return fetch(url)
         .then(response => response.json())
         .then(game => {
@@ -28,6 +23,32 @@ function fetchGame(gameId) {
           // Return the game data
           return game;
         });
+    }
+  }
+
+  function searchGames(query, cacheTime = 300000) {
+    const cachedSearches = JSON.parse(localStorage.getItem('searches')) || {};
+    const cachedResult = cachedSearches[query];
+    const now = new Date().getTime();
+    
+    if (cachedResult && (now - cachedResult.timestamp) < cacheTime) {
+      // Return the cached search results
+      console.log(`Retrieving search results for "${query}" from cache`);
+      return Promise.resolve(cachedResult.games);
+    } else {
+      // Make the API request and cache the search results
+      const url = `https://api.rawg.io/api/games?key=${config.api}&search=${query}`;
+      return fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const games = data.results;
+          console.log(games)
+          console.log(`Caching search results for "${query}" in local storage`);
+          cachedSearches[query] = { games, timestamp: now };
+          localStorage.setItem('searches', JSON.stringify(cachedSearches));
+          return games;
+        })
+        .catch(error => console.error(error));
     }
   }
   
@@ -48,3 +69,142 @@ function fetchGame(gameId) {
   });
   
   console.log(localStorage.getItem('games'));
+
+  //Search Bar
+
+  document.getElementById('searchBar').addEventListener('click', async (e) => {
+    const body = document.querySelector(".list")
+    e.preventDefault()
+    body.innerHTML=''
+    const input = document.querySelector('input').value
+    await searchGames(input).then(data => {
+      data.forEach(async (elem) => {
+        const listElement = document.createElement('li')
+        listElement.style.display = "flex"
+        listElement.style.justifyContent ="center"
+        listElement.innerHTML = `<div class="mb-5 mx-5 h-100 w-100">
+        <div class="card h-100 w-100">
+          <!-- Product details-->
+          <div class="card-body " style="z-index: 1;">
+            <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder text-light">${elem.name}</h5>
+              <!-- Product price-->
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
+            <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample${count}" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
+            <div class="collapse text-center"  id="collapseExample${count}"  style="z-index: 1;">
+              <p class="card-text fw-bold text-dark"></p>
+              <a href="#" id="cardButton" class="btn btn-primary">View More</a>
+            </div>
+          </div>
+          <!-- Product image-->
+          <div class="card-img-overlay" style="background-image: url('${elem.background_image}'); opacity: 1; pointer-events: none; background-size: cover;"></div>
+        </div>
+      </div>`
+
+        body.append(listElement)
+        count+=1
+      })
+    })
+
+  })
+
+
+  const genresContainer = document.querySelector('#genres');
+  const gameDataContainer = document.querySelector('#game-data');
+  
+  // Fetch genres from the RAWG API and display them
+  fetch('https://api.rawg.io/api/genres?key=' + config.api)
+    .then(response => response.json())
+    .then(data => {
+      data.results.forEach(genre => {
+        // Create a new element for the genre card
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.style.backgroundImage = `url(${genre.image_background})`;
+        card.style.backgroundPosition = "center"
+        card.style.backgroundSize= "cover"
+        card.style.backgroundRepeat ="no-repeat"
+        card.style.width="300px"
+        card.style.height="300px"
+
+        card.setAttribute('id', 'hoverCard')
+  
+        // Create the card body
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+        const cardText = document.createElement('p')
+
+        cardText.setAttribute('class','card-text')
+
+        cardText.textContent = genre.games[0].name
+
+        // Create the card title
+        const cardTitle = document.createElement('h5');
+        cardTitle.classList.add('card-title', 'text-light');
+        cardTitle.textContent = genre.name;
+        cardBody.appendChild(cardTitle);
+        cardBody.style.display="flex"
+        cardBody.style.justifyContent="center"
+  
+        // Add the card body to the card
+        card.appendChild(cardBody);
+  
+        // Add event listener to each genre card
+        card.addEventListener('click', () => {
+          // Check if game data is already in local storage
+          const cachedGameData = JSON.parse(localStorage.getItem(genre.slug));
+          if (cachedGameData) {
+            // Display game data from local storage
+            displayGameData(cachedGameData);
+          } else {
+            // Fetch game data for the selected genre
+            fetch(`https://api.rawg.io/api/games?genres=${genre.slug}&ordering=-rating&key=` + config.api)
+              .then(response => response.json())
+              .then(data => {
+                // Cache game data in local storage
+                localStorage.setItem(genre.slug, JSON.stringify(data.results));
+  
+                // Display game data
+                displayGameData(data.results);
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+          }
+        });
+  
+        // Add the genre card to the container
+        const col = document.createElement('div');
+        col.classList.add('col', 'mb-5');
+        col.appendChild(card);
+        genresContainer.appendChild(col);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  
+  // Function to display game data
+  function displayGameData(data) {
+    // Create an element to display the game data
+    const gameData = document.createElement('div');
+  
+    // Add the game data to the element
+    data.forEach(game => {
+      const p = document.createElement('p');
+      p.textContent = game.name;
+      p.style.color = "white"
+      gameData.appendChild(p);
+    });
+  
+    // Add the game data element to the page
+    gameDataContainer.innerHTML = '';
+    gameDataContainer.appendChild(gameData);
+  
+    // Add a class to the game data container to trigger a transition
+    gameDataContainer.classList.add('show-game-data');
+  }

@@ -1,6 +1,30 @@
-window.carryOverGenre
+const modalBody =document.querySelector('#advanced')
+const modal2 = document.querySelector('#advancedModal')
+
+const modal1 = document.querySelector('#exampleModal')
+
+
 
 let count = 10
+
+
+function showModal1() {
+  modal1.classList.add("show");
+}
+
+function hideModal1() {
+  modal1.classList.remove("show");
+}
+
+function showModal2() {
+  modal2.classList.add("show");
+}
+
+function hideModal2() {
+  modal2.classList.remove("show");
+}
+
+
 
 // Define a function to make the API request and cache the data in local storage
 function fetchGame(gameId) {
@@ -77,10 +101,8 @@ function fetchGame(gameId) {
 function handleSearchBar(visible) {
   const body = document.querySelector('.list');
   const input = document.querySelector('input').value;
-
-  if (!visible) {
+  
     body.innerHTML = '';
-  }
 
   searchGames(input).then((data) => {
     data.forEach((elem) => {
@@ -116,8 +138,6 @@ function handleSearchBar(visible) {
         document
           .querySelector('#cardButton' + count)
           .addEventListener('click', () => {
-            const modal = document.querySelector('#myModal');
-            const modalBody = document.querySelector('.modal-body');
 
             const title = document.createElement('h2');
             title.textContent = elem.name;
@@ -135,7 +155,11 @@ function handleSearchBar(visible) {
             modalBody.appendChild(description);
 
             // Show the modal
-            modal.show();
+            showModal2();
+            modal2.querySelector('.btn-close').addEventListener('click',function() {
+              showModal1()
+              hideModal2()
+            })
           });
       }
 
@@ -157,10 +181,6 @@ const viewMoreButtons = document.querySelectorAll('.btn-primary');
 
 // Search bar
 const searchBar = document.getElementById('searchBar');
-
-// Modal
-const modal = document.querySelector('#myModal');
-const modalBody = document.querySelector('.modal-body');
 
 // Function to fetch game data and display modal
 const displayGameDetails = async (gameId) => {
@@ -186,7 +206,7 @@ const displayGameDetails = async (gameId) => {
     modalBody.appendChild(description);
 
     // Show the modal
-    modal.show();
+    showModal2();
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -322,3 +342,4 @@ card.addEventListener('click', () => {
     // Add a class to the game data container to trigger a transition
     gameDataContainer.classList.add('show-game-data');
   }
+

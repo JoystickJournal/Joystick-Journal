@@ -59,3 +59,13 @@
   flex: 0 0 calc(33.33% - 1rem);
   margin-bottom: 1rem;
 }
+
+/* CSS code to hide modals by default */
+.modal {
+  display: none;
+}
+
+/* CSS code to show modals when a specific class is added */
+.modal.show {
+  display: block;
+}

@@ -92,7 +92,6 @@ function fetchGame(gameId) {
     // Do something with the game data
   });
   
-  console.log(localStorage.getItem('games'));
 
   //Search Bar
 
@@ -138,28 +137,7 @@ function handleSearchBar(visible) {
         document
           .querySelector('#cardButton' + count)
           .addEventListener('click', () => {
-
-            const title = document.createElement('h2');
-            title.textContent = elem.name;
-
-            const rating = document.createElement('p');
-            rating.textContent = `Rating: ${elem.rating}`;
-
-            const description = document.createElement('p');
-            description.textContent = elem.description;
-
-            // Clear the modal body and add the game data elements
-            modalBody.innerHTML = '';
-            modalBody.appendChild(title);
-            modalBody.appendChild(rating);
-            modalBody.appendChild(description);
-
-            // Show the modal
-            showModal2();
-            modal2.querySelector('.btn-close').addEventListener('click',function() {
-              showModal1()
-              hideModal2()
-            })
+            displayGameDetails(elem.id)
           });
       }
 
@@ -188,7 +166,7 @@ const displayGameDetails = async (gameId) => {
     // Fetch data for the selected game
     const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=${config.api}`);
     const data = await response.json();
-
+    console.log(data)
     // Create elements to display the game data
     const title = document.createElement('h2');
     title.textContent = data.name;
@@ -196,17 +174,27 @@ const displayGameDetails = async (gameId) => {
     const rating = document.createElement('p');
     rating.textContent = `Rating: ${data.rating}`;
 
-    const description = document.createElement('p');
-    description.textContent = data.description;
+    const desc = document.createElement('p');
+    if (data.description) {
+      desc.innerHTML = data.description;
+    } else {
+      desc.textContent = 'No description available.';
+    }
 
     // Clear the modal body and add the game data elements
     modalBody.innerHTML = '';
     modalBody.appendChild(title);
     modalBody.appendChild(rating);
-    modalBody.appendChild(description);
+    modalBody.append(desc);
+    console.log(desc)
 
     // Show the modal
     showModal2();
+    modal2.addEventListener('click',function() {
+      hideModal2(
+      showModal1
+      )
+    })
   } catch (error) {
     console.error('Error fetching data:', error);
   }

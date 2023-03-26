@@ -3,6 +3,8 @@ const modal2 = document.querySelector('#advancedModal')
 
 const modal1 = document.querySelector('#exampleModal')
 
+const loadingScreen = document.getElementById('loading-screen');
+
 
 
 let count = 10
@@ -100,7 +102,7 @@ function fetchGame(gameId) {
 function handleSearchBar(visible) {
   const body = document.querySelector('.list');
   const input = document.querySelector('input').value;
-  
+    document.querySelector('.modal-title').textContent = `Search Results for: "${input}"`
     body.innerHTML = '';
 
   searchGames(input).then((data) => {
@@ -163,6 +165,7 @@ const searchBar = document.getElementById('searchBar');
 // Function to fetch game data and display modal
 const displayGameDetails = async (gameId) => {
   try {
+
     // Fetch data for the selected game
     const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=${config.api}`);
     const data = await response.json();
@@ -188,6 +191,7 @@ const displayGameDetails = async (gameId) => {
     modalBody.append(desc);
     console.log(desc)
 
+    loadingScreen.style.display = 'none';
     // Show the modal
     showModal2();
     modal2.addEventListener('click',function() {
@@ -203,6 +207,7 @@ const displayGameDetails = async (gameId) => {
 // Event listener for view more buttons
 viewMoreButtons.forEach((button) => {
   button.addEventListener('click', async (e) => {
+    
     e.preventDefault();
     console.log('hello')
     // Disable search bar functionality
@@ -232,6 +237,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
   data.results.forEach(genre => {
     // Create a new element for the genre card
     const card = document.createElement('div');
+    card.style.visibility="hidden"
     card.classList.add('card', 'mb-5'); // Add 'mb-5' class for margin
     card.style.backgroundImage = `url(${genre.image_background})`;
     card.style.backgroundPosition = "center"
@@ -249,7 +255,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
 
     // Create the card title
     const cardTitle = document.createElement('h5');
-    cardTitle.classList.add('card-title', 'text-light', 'fw-bolder');
+    cardTitle.classList.add('card-title', 'text-light', 'fw-bolder', 'animated');
     cardTitle.textContent = genre.name;
     cardBody.appendChild(cardTitle);
     cardBody.style.display="flex"
@@ -331,3 +337,20 @@ card.addEventListener('click', () => {
     gameDataContainer.classList.add('show-game-data');
   }
 
+  const cardContainer = document.querySelector('#genres');
+
+  // Add an event listener for the window's "scroll" event
+  window.addEventListener('scroll', () => {
+    // Get the position of the bottom of the viewport
+    const bottomOfViewport = window.innerHeight + window.scrollY;
+  
+    // Loop through each card in the container
+    cardContainer.querySelectorAll('.card').forEach(card => {
+      // If the bottom of the card is above the bottom of the viewport...
+      if (card.offsetTop + card.offsetHeight < bottomOfViewport) {
+        // Add the "fade-in" class to the card
+        card.style.visibility="visible"
+        card.classList.add('fade-in');
+      }
+    });
+  });

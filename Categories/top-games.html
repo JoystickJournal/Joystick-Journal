@@ -24,7 +24,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
     <script src="https://kit.fontawesome.com/3232dc6896.js" crossorigin="anonymous"></script>
     <script src="login/loginAuth.js"></script>
-    <script src="login/AuthStateCheck.js"></script>
+    <script src="login/AuthStateCheck.js" defer></script>
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
@@ -36,11 +36,25 @@
     <link rel="stylesheet" href="top-games.css">
 </head>
 <body class="bg-black">
+  <div class="offcanvas offcanvas-start bg-black text-light" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Wishlist</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+      </div>
+    </div>
+  </div>
   <!-- Navigation-->
   <nav class="navbar sticky-top navbar-expand-lg">
+    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+      <i class="fa-solid fa-bars" style="color: #fafafa;"></i>
+    </button>
     <div class="container px-4 px-lg-5">
         <img class = "w-auto h-100 mx-3" src="images/oie_transparent (2).png">
-        <a class="navbar-brand fs-1" id="logo" href="top-games.html">JOYSTICK JOURNAL</a>
+        <a class="navbar-brand fs-1" id="logo" href="../index.html">JOYSTICK JOURNAL</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -56,7 +70,7 @@
 <header class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white d-flex flex-column">
-            <h1 class="display-4 fw-bolder mb-5">Top Games</h1>
+            <h1 class="display-4 fw-bolder mb-5">Hottest Games Right Now</h1>
             <section class="carousel-section">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -74,8 +88,8 @@
         </div>
     </div>
 </header>
-<div class="text-center text-white d-flex flex-column">
-    <h1 class="display-4 fw-bolder">Genres</h1>
+<div class="text-center text-white d-flex justify-content-center" id="genreContainer">
+    <h1 class="display-4 fw-bolder">Popular Genres</h1>
 </div>
 <!-- Section-->
 
@@ -125,5 +139,8 @@
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; JoystickJournal 2023</p></div>
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-</body>
+<script>
+
+</script>
+  </body>
 </html>

@@ -1,10 +1,14 @@
 const cardContainer2 = document.querySelector('section')
 
-const genreName = localStorage.getItem('genreName').toLowerCase();
+let genreName = localStorage.getItem('genreName').toLowerCase();
 
 let countID = 0
 
 console.log(genreName)
+
+if(genreName == 'board games') {
+  genreName = 'board-games'
+}
 
 
 const fetchGameData = async (id) => {

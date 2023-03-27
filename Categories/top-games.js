@@ -168,6 +168,7 @@ const displayGameDetails = async (gameId) => {
 
     const heart = document.createElement('i')
 
+
     const heartCaption = document.createElement('h5')
 
     heartCaption.textContent = `Click here to wishlist!`
@@ -176,7 +177,9 @@ const displayGameDetails = async (gameId) => {
 
     heartAndTextcontainer.append(heart,heartCaption)
 
-    heart.innerHTML = `<i class="fa-solid fa-heart" style="color: #db0606;"></i>`
+    heartAndTextcontainer.setAttribute('id','heartAndTextcontainer')
+
+    heart.innerHTML = `<i class="fa-solid fa-heart" style="color: #db0606;" id="Wishlist"></i>`
 
     div.append(rating,heartAndTextcontainer)
 
@@ -202,16 +205,16 @@ const displayGameDetails = async (gameId) => {
       desc.textContent = 'No description available.';
     }
 
-    heart.addEventListener('click',function () {
-      let obj = {}
-      obj.title = data.name
-      obj.rating = data.rating
-      obj.description = data.description
-      obj.image = data.background_image_additional
-      wishListArray.push(obj)
-
-      console.log(wishListArray)
-    })
+    // heart.addEventListener('click',function () {
+    //   let obj = {}
+    //   obj.title = data.name
+    //   obj.rating = data.rating
+    //   obj.description = data.description
+    //   obj.image = data.background_image_additional
+    //   wishListArray.push(obj)
+    //   userWishlistRef.child(obj).set(true)
+    //   console.log(wishListArray)
+    // })
 
     // Clear the modal body and add the game data elements
     modalBody.innerHTML = '';
@@ -275,6 +278,10 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
     card.style.height="300px"
 
     card.setAttribute('id', 'hoverCard')
+
+    card.addEventListener('mouseover',function() {
+      card.style.cursor ='pointer'
+    })
 
     // Create the card body
     const cardBody = document.createElement('div');

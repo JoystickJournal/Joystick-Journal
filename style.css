@@ -1,0 +1,59 @@
+@font-face{
+    font-family: myFont;
+    src: url('1679892914_original.ttf');
+}
+
+body{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: auto;
+}
+
+#title{
+    color: white;
+    /* padding-top: 2%;
+    padding-bottom: 4%; */
+    font-family: myFont;
+    text-align: center;
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1%;
+}
+
+#logo{
+    width: auto;
+    height: 80%;
+}
+
+img{
+    height: 400px;
+    width: 400px;
+}
+
+#getStarted{
+    background-color: greenyellow;
+    margin-top: 3%;
+}
+
+/* .carousel-image img {
+    height: 600px;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: scale-down;
+
+  } */
+
+  main{
+    width: 600px;
+}
+
+

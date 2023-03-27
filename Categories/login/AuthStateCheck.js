@@ -15,9 +15,7 @@ const firebaseConfig = {
     signInSuccessUrl: '../top-games.html',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID,
       firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
     ],
     // tosUrl and privacyPolicyUrl accept either url string or a callback
@@ -40,48 +38,70 @@ const firebaseConfig = {
 
   let userState
 
-firebase.auth().onAuthStateChanged(function(user) {
+  const AdvancedModalBody = document.querySelector('#advanced')
+
+  firebase.auth().onAuthStateChanged(function(user) {
     if (user && !user.isAnonymous) {
-      console.log('User is signed in.')
-      userState = firebase.auth().currentUser.uid
-      console.log(userState)
-      const userWishlistRef = firebase.database().ref('wishlists/' + userState);
-      console.log(userWishlistRef)
-      userWishlistRef.child(4298).set(true)
-      userWishlistRef.on('value', function(snapshot) {
-        // This function will be called whenever the wishlist data changes
-        const wishlist = snapshot.val();
-        // Do something with the wishlist data
-        console.log(wishlist)
-      });
-    //   document.getElementById('authenticated-content').style.display = 'block';
+        console.log('User is signed in.')
+        const userWishlistRef = firebase.database().ref('wishlists/' + user.uid);
+        console.log(user.uid)
+        // Add event listener to parent element
+        document.addEventListener('click', function(event) {
+            // Check if target element is the Wishlist button
+            console.log(event.target)
+            if (event.target && event.target.matches('#Wishlist')) {
+                const gameObj = {
+                    title: AdvancedModalBody.querySelector('h2').textContent,
+                    rating: AdvancedModalBody.querySelector('h5').textContent,
+                    description: AdvancedModalBody.querySelector('p').textContent,
+                    image: AdvancedModalBody.querySelector('img').src
+                };
+                userWishlistRef.child(gameObj.title).set(gameObj, function(error) {
+                    if (error) {
+                      console.log('Error:', error);
+                    } else {
+                      console.log('Game added to wishlist successfully!');
+                    }
+                })
+                console.log('success')
+        }
+    });
+
+        userWishlistRef.on('value', function(snapshot) {
+            const wishlist = snapshot.val();
+            console.log(wishlist)
+            const wishlistItems = [];
+            let count = 0
+            for (const key in wishlist) {
+                count++
+                const gameObject = wishlist[key];
+                const item = document.createElement('div');
+                item.classList.add('wishlist-item');
+                item.innerHTML = `
+                <div class="card text-bg-dark">
+  <img src="${gameObject.image}" class="card-img" alt="...">
+  <div class="card-img-overlay">
+    <h5 class="card-title">${gameObject.title}</h5>
+    <div class="collapse" id="collapseExample${count}">
+    <p class="card-text">${gameObject.description}</p>
+    </div>
+  </div>
+</div>
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample${count}" aria-expanded="false" aria-controls="collapseExample">
+Expand
+</button>
+                `;
+
+
+                wishlistItems.push(item);
+              }
+              const wishlistContainer = document.querySelector('.offcanvas-body');
+              wishlistContainer.innerHTML = '';
+              wishlistItems.forEach(function(item) {
+                wishlistContainer.appendChild(item);
+              });
+        });
     } else {
-      console.log('User is signed out.')
-    //   document.getElementById('authenticated-content').style.display = 'none';
+        console.log('User is signed out.')
     }
-  });
-
-
-
-  const database = firebase.database();
-
-  const gameData = {
-    title: "The Witcher 3: Wild Hunt",
-    platform: "PC",
-    releaseYear: 2015
-  };
-
-const userId = firebase.auth().currentUser.uid;
-const wishlistRef = database.ref('users/' + userId + '/wishlist');
-
-if (user && user.uid) {
-  const uid = user.uid;
-  // rest of the code that depends on uid
-} else {
-  console.log("User is not logged in.");
-}
-
-wishlistRef.on('value', (snapshot) => {
-  const wishlistData = snapshot.val();
-  console.log(wishlistData);
 });

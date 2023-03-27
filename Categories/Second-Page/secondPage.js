@@ -2,9 +2,10 @@ const cardContainer2 = document.querySelector('section')
 
 const genreName = localStorage.getItem('genreName').toLowerCase();
 
+let countID = 0
+
 console.log(genreName)
 
-let countID = 0
 
 const fetchGameData = async (id) => {
   const cacheKey = `game-${id}`;
@@ -43,7 +44,6 @@ const renderCard = async (game) => {
   const gameData = await fetchGameData(id);
   const { description } = gameData;
   card.querySelector('.card-text').innerHTML = description;
-  count++
 };
 
 fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
@@ -52,3 +52,9 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
     console.log(data);
     data.results.forEach(renderCard);
   });
+
+  document.querySelector('#searchBar').addEventListener('click',(e)=> {
+    e.preventDefault()
+
+    handleSearchBar(true,countID);
+  })

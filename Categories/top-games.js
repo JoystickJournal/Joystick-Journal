@@ -7,8 +7,9 @@ const loadingScreen = document.getElementById('loading-screen');
 
 console.log(userState)
 
-let count = 10
+let counter = 10
 
+const wishListArray = []
 
 function showModal1() {
   modal1.classList.add("show");
@@ -84,7 +85,7 @@ function fetchBackgroundImage(gameId) {
 
 // Search Bar
 
-function handleSearchBar(visible) {
+function handleSearchBar(visible,count) {
   const body = document.querySelector('.list');
   const input = document.querySelector('input').value;
     document.querySelector('.modal-title').textContent = `Search Results for: "${input}"`
@@ -136,10 +137,10 @@ function handleSearchBar(visible) {
 document.getElementById('searchBar').addEventListener('click', (e) => {
   e.preventDefault();
 
-  handleSearchBar(true);
+  handleSearchBar(true,counter);
 });
 
-handleSearchBar(false);
+handleSearchBar(false,counter);
 
 // View more buttons
 const viewMoreButtons = document.querySelectorAll('.btn-primary');
@@ -159,8 +160,40 @@ const displayGameDetails = async (gameId) => {
     const title = document.createElement('h2');
     title.textContent = data.name;
 
-    const rating = document.createElement('p');
+    const rating = document.createElement('h5');
     rating.textContent = `Rating: ${data.rating}`;
+    
+
+    const div = document.createElement('div')
+
+    const heart = document.createElement('i')
+
+    const heartCaption = document.createElement('h5')
+
+    heartCaption.textContent = `Click here to wishlist!`
+
+    const heartAndTextcontainer = document.createElement('div')
+
+    heartAndTextcontainer.append(heart,heartCaption)
+
+    heart.innerHTML = `<i class="fa-solid fa-heart" style="color: #db0606;"></i>`
+
+    div.append(rating,heartAndTextcontainer)
+
+    div.style.display='flex'
+
+    div.style.justifyContent='space-between'
+
+    div.style.alignItems='space-between'
+
+    div.style.borderBottom="2px white solid"
+
+    const image = document.createElement('img')
+
+    image.src = data.background_image_additional
+
+    image.style.width = '100%'
+
 
     const desc = document.createElement('p');
     if (data.description) {
@@ -169,10 +202,22 @@ const displayGameDetails = async (gameId) => {
       desc.textContent = 'No description available.';
     }
 
+    heart.addEventListener('click',function () {
+      let obj = {}
+      obj.title = data.name
+      obj.rating = data.rating
+      obj.description = data.description
+      obj.image = data.background_image_additional
+      wishListArray.push(obj)
+
+      console.log(wishListArray)
+    })
+
     // Clear the modal body and add the game data elements
     modalBody.innerHTML = '';
     modalBody.appendChild(title);
-    modalBody.appendChild(rating);
+    modalBody.appendChild(image)
+    modalBody.appendChild(div);
     modalBody.append(desc);
     console.log(desc)
     // Show the modal

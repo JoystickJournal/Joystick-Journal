@@ -1,0 +1,127 @@
+@font-face{
+    font-family: myFont;
+    src: url('1679892914_original.ttf');
+}
+
+body{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: auto;
+}
+
+#title{
+    color: white;
+    /* padding-top: 2%;
+    padding-bottom: 4%; */
+    font-family: myFont;
+    text-align: center;
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1%;
+}
+
+#logo{
+    width: auto;
+    height: 80%;
+}
+
+img{
+    height: 400px;
+    width: 400px;
+}
+
+#getStarted{
+    background-color: greenyellow;
+    margin-top: 1%;
+    
+}
+
+/* .carousel-image img {
+    height: 600px;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: scale-down;
+
+  } */
+
+  main{
+    width: 600px;
+}
+
+#getStarted {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#getStarted:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+#getStarted:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+

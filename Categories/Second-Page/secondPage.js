@@ -1,4 +1,4 @@
-const cardContainer = document.querySelector('section')
+const cardContainer2 = document.querySelector('section')
 
 const genreName = localStorage.getItem('genreName').toLowerCase();
 
@@ -38,7 +38,7 @@ const renderCard = async (game) => {
 </div>`;
 
 
-  cardContainer.append(card);
+  cardContainer2.append(card);
 
   const gameData = await fetchGameData(id);
   const { description } = gameData;

@@ -190,14 +190,12 @@ const displayGameDetails = async (gameId) => {
     modalBody.appendChild(rating);
     modalBody.append(desc);
     console.log(desc)
-
-    loadingScreen.style.display = 'none';
     // Show the modal
     showModal2();
     modal2.addEventListener('click',function() {
-      hideModal2(
-      showModal1
-      )
+      hideModal2()
+      showModal1()
+
     })
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -354,3 +352,46 @@ card.addEventListener('click', () => {
       }
     });
   });
+
+  const carousel = document.querySelector('.carousel-inner')
+
+  function CarouselAppend() {
+    fcarouselItem = document.createElement('div')
+        fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=' + config.api).then(response => response.json())
+    .then(data => {
+      let filteredArray = data.results
+      for(let i = 0;i<filteredArray.length-1;i++) {
+        if(i < 1) {
+          let description = fetchGame(filteredArray[i].id)
+          console.log(description)
+          let carouselItem = document.createElement('div')
+          carouselItem.classList.add('carousel-item', 'active', 'carousel-image')
+          carouselItem.setAttribute('data-bs-interval','10000')
+          carouselItem.innerHTML = `
+          <img src="${filteredArray[i].background_image}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>${filteredArray[i].name}</h5>
+          </div>
+        </div>`
+        carousel.append(carouselItem)
+        }
+        else if(filteredArray[i].id !== filteredArray[i+1].id) {
+          let description = fetchGame(filteredArray[i].id)
+          console.log(description)
+          let carouselItem = document.createElement('div')
+          carouselItem.classList.add('carousel-item', 'carousel-image')
+          carouselItem.setAttribute('data-bs-interval','10000')
+          carouselItem.innerHTML = `
+          <img src="${filteredArray[i].background_image}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>${filteredArray[i].name}</h5>
+          </div>
+        </div>`
+        carousel.append(carouselItem)
+        }
+      }
+
+  })
+}
+
+  document.addEventListener('DOMContentLoaded',CarouselAppend)

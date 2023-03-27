@@ -8,7 +8,7 @@ body{
     overflow:hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     justify-items: auto;
     width: 100vw;
@@ -60,7 +60,7 @@ img{
 
   main{
     width: 600px;
-    height:70vh;
+    height:89vh;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -72,7 +72,7 @@ img{
   border: none;
   outline: none;
   color: rgb(255, 255, 255);
-  background: #111;
+  background-color: #000000;
   cursor: pointer;
   position: relative;
   z-index: 0;

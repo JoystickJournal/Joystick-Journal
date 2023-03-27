@@ -5,10 +5,11 @@ const modal1 = document.querySelector('#exampleModal')
 
 const loadingScreen = document.getElementById('loading-screen');
 
+console.log(userState)
 
+let counter = 10
 
-let count = 10
-
+const wishListArray = []
 
 function showModal1() {
   modal1.classList.add("show");
@@ -29,28 +30,28 @@ function hideModal2() {
 
 
 // Define a function to make the API request and cache the data in local storage
-function fetchGame(gameId) {
-    // Check if the game is already stored in the local storage
-    const cachedGames = JSON.parse(localStorage.getItem('games')) || {};
-    if (cachedGames[gameId]) {
-      // If the game is already stored in the local storage, return it
-      console.log(`Retrieving game ${gameId} from cache`);
-      return Promise.resolve(cachedGames[gameId]);
-    } else {
-      // If the game is not stored in the local storage, make the API request
-      const url = `https://api.rawg.io/api/games/${gameId}?key=` + config.api;
-      return fetch(url)
-        .then(response => response.json())
-        .then(game => {
-          // Store the game in the local storage
-          console.log(`Caching game ${gameId} in local storage`);
-          cachedGames[gameId] = game;
-          localStorage.setItem('games', JSON.stringify(cachedGames));
-          // Return the game data
-          return game;
-        });
-    }
+function fetchBackgroundImage(gameId) {
+  // Check if the game background image is already stored in the local storage
+  const cachedBackgroundImages = JSON.parse(localStorage.getItem('backgroundImages')) || {};
+  if (cachedBackgroundImages[gameId]) {
+    // If the background image is already stored in the local storage, return it
+    console.log(`Retrieving background image for game ${gameId} from cache`);
+    return Promise.resolve(cachedBackgroundImages[gameId]);
+  } else {
+    // If the background image is not stored in the local storage, make the API request
+    const url = `https://api.rawg.io/api/games/${gameId}?key=` + config.api;
+    return fetch(url)
+      .then(response => response.json())
+      .then(game => {
+        // Store the game background image in the local storage
+        console.log(`Caching background image for game ${gameId} in local storage`);
+        cachedBackgroundImages[gameId] = game.background_image;
+        localStorage.setItem('backgroundImages', JSON.stringify(cachedBackgroundImages));
+        // Return the game background image
+        return game.background_image;
+      });
   }
+}
 
   function searchGames(query, cacheTime = 300000) {
     const cachedSearches = JSON.parse(localStorage.getItem('searches')) || {};
@@ -78,28 +79,13 @@ function fetchGame(gameId) {
     }
   }
   
-  // Call the fetchGame function to make the API request and get the game data
-  fetchGame(3498).then(game => {
-    console.log(`Game ${game.id}: ${game.name}`);
-    // Do something with the game data
-  });
-  
-  fetchGame(3328).then(game => {
-    console.log(`Game ${game.id}: ${game.name}`);
-    // Do something with the game data
-  });
-  
-  fetchGame(4200).then(game => {
-    console.log(`Game ${game.id}: ${game.name}`);
-    // Do something with the game data
-  });
   
 
   //Search Bar
 
 // Search Bar
 
-function handleSearchBar(visible) {
+function handleSearchBar(visible,count) {
   const body = document.querySelector('.list');
   const input = document.querySelector('input').value;
     document.querySelector('.modal-title').textContent = `Search Results for: "${input}"`
@@ -151,10 +137,10 @@ function handleSearchBar(visible) {
 document.getElementById('searchBar').addEventListener('click', (e) => {
   e.preventDefault();
 
-  handleSearchBar(true);
+  handleSearchBar(true,counter);
 });
 
-handleSearchBar(false);
+handleSearchBar(false,counter);
 
 // View more buttons
 const viewMoreButtons = document.querySelectorAll('.btn-primary');
@@ -174,8 +160,40 @@ const displayGameDetails = async (gameId) => {
     const title = document.createElement('h2');
     title.textContent = data.name;
 
-    const rating = document.createElement('p');
+    const rating = document.createElement('h5');
     rating.textContent = `Rating: ${data.rating}`;
+    
+
+    const div = document.createElement('div')
+
+    const heart = document.createElement('i')
+
+    const heartCaption = document.createElement('h5')
+
+    heartCaption.textContent = `Click here to wishlist!`
+
+    const heartAndTextcontainer = document.createElement('div')
+
+    heartAndTextcontainer.append(heart,heartCaption)
+
+    heart.innerHTML = `<i class="fa-solid fa-heart" style="color: #db0606;"></i>`
+
+    div.append(rating,heartAndTextcontainer)
+
+    div.style.display='flex'
+
+    div.style.justifyContent='space-between'
+
+    div.style.alignItems='space-between'
+
+    div.style.borderBottom="2px white solid"
+
+    const image = document.createElement('img')
+
+    image.src = data.background_image_additional
+
+    image.style.width = '100%'
+
 
     const desc = document.createElement('p');
     if (data.description) {
@@ -184,10 +202,22 @@ const displayGameDetails = async (gameId) => {
       desc.textContent = 'No description available.';
     }
 
+    heart.addEventListener('click',function () {
+      let obj = {}
+      obj.title = data.name
+      obj.rating = data.rating
+      obj.description = data.description
+      obj.image = data.background_image_additional
+      wishListArray.push(obj)
+
+      console.log(wishListArray)
+    })
+
     // Clear the modal body and add the game data elements
     modalBody.innerHTML = '';
     modalBody.appendChild(title);
-    modalBody.appendChild(rating);
+    modalBody.appendChild(image)
+    modalBody.appendChild(div);
     modalBody.append(desc);
     console.log(desc)
     // Show the modal
@@ -356,42 +386,43 @@ card.addEventListener('click', () => {
   const carousel = document.querySelector('.carousel-inner')
 
   function CarouselAppend() {
+    const carousel = document.querySelector('.carousel-inner')
     fcarouselItem = document.createElement('div')
-        fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=' + config.api).then(response => response.json())
-    .then(data => {
-      let filteredArray = data.results
-      for(let i = 0;i<filteredArray.length-1;i++) {
-        if(i < 1) {
-          let description = fetchGame(filteredArray[i].id)
-          console.log(description)
-          let carouselItem = document.createElement('div')
-          carouselItem.classList.add('carousel-item', 'active', 'carousel-image')
-          carouselItem.setAttribute('data-bs-interval','10000')
-          carouselItem.innerHTML = `
-          <img src="${filteredArray[i].background_image}" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>${filteredArray[i].name}</h5>
-          </div>
-        </div>`
-        carousel.append(carouselItem)
+    fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=' + config.api)
+      .then(response => response.json())
+      .then(data => {
+        let filteredArray = data.results
+        for (let i = 0; i < filteredArray.length - 1; i++) {
+          if (i < 1) {
+            fetchBackgroundImage(filteredArray[i].id).then(backgroundImage => {
+              let carouselItem = document.createElement('div')
+              carouselItem.classList.add('carousel-item', 'active', 'carousel-image')
+              carouselItem.setAttribute('data-bs-interval', '10000')
+              carouselItem.innerHTML = `
+                <img src="${backgroundImage}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>${filteredArray[i].name}</h5>
+                </div>
+              </div>`
+              carousel.append(carouselItem)
+            })
+          } else if (filteredArray[i].id !== filteredArray[i + 1].id) {
+            fetchBackgroundImage(filteredArray[i].id).then(backgroundImage => {
+              let carouselItem = document.createElement('div')
+              carouselItem.classList.add('carousel-item', 'carousel-image')
+              carouselItem.setAttribute('data-bs-interval', '10000')
+              carouselItem.innerHTML = `
+                <img src="${backgroundImage}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>${filteredArray[i].name}</h5>
+                </div>
+              </div>`
+              carousel.append(carouselItem)
+            })
+          }
         }
-        else if(filteredArray[i].id !== filteredArray[i+1].id) {
-          let description = fetchGame(filteredArray[i].id)
-          console.log(description)
-          let carouselItem = document.createElement('div')
-          carouselItem.classList.add('carousel-item', 'carousel-image')
-          carouselItem.setAttribute('data-bs-interval','10000')
-          carouselItem.innerHTML = `
-          <img src="${filteredArray[i].background_image}" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>${filteredArray[i].name}</h5>
-          </div>
-        </div>`
-        carousel.append(carouselItem)
-        }
-      }
-
-  })
-}
+      })
+  }
 
   document.addEventListener('DOMContentLoaded',CarouselAppend)
+

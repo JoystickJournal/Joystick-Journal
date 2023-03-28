@@ -433,3 +433,6 @@ card.addEventListener('click', () => {
 
   document.addEventListener('DOMContentLoaded',CarouselAppend)
 
+
+
+

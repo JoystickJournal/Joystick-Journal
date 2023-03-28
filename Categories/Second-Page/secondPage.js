@@ -1,8 +1,14 @@
-const cardContainer2 = document.querySelector('section')
+const cardContainer2 = document.querySelector('#cardContainer2')
+const cardContainer3 = document.querySelector('#cardContainer3')
+
 
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
 let countID = 0
+
+let pageCounter = 1
+
+let isFetchingData = false;
 
 console.log(genreName)
 
@@ -30,31 +36,82 @@ const fetchGameData = async (id) => {
   return data;
 };
 
-const renderCard = async (game) => {
-  const { name, background_image, id } = game;
+const renderCard = async (game,count) => {
+  const { name, background_image, id, parent_platforms, metacritic, released, genres  } = game;
+
+  let str = parent_platforms.map(elem => {
+     if(elem.platform.name == 'Xbox') {
+      return `<i class="fa-brands fa-xbox" style="color: #ffffff; margin:0 0.25em;"></i>`
+    }
+    else if(elem.platform.name == 'Playstation') {
+      return `<i class="fa-brands fa-playstation" style="color: #ffffff; margin:0 0.25em;"></i>`
+    }
+    else if(elem.platform.name == 'PC') {
+      return `<i class="fa-brands fa-windows" style="color: #ffffff; margin:0 0.25em;"></i>`
+    }
+    else if(elem.platform.name == 'Linux') {
+      return `<i class="fa-brands fa-linux" style="color: #ffffff; margin:0 0.25em;"></i>`
+    }
+  })
+  const dateString = released;
+const date = new Date(dateString);
+const options = { month: "short", day: "numeric", year: "numeric" };
+const formattedDate = date.toLocaleDateString("en-US", options);
 
   const card = document.createElement('div');
-  card.innerHTML = `<div class="card mb-3">
+  const platforms = document.createElement('p')
+  platforms.innerHTML = str.join('');
+  const expandableContent = document.createElement('div');
+  expandableContent.classList.add('expandable-content');
+  expandableContent.innerHTML = `
+    <div class="release-date">${formattedDate}</div>
+    <div class="genres">${genres.map(genre => genre.name).join(', ')}</div>
+  `;
+
+  card.innerHTML = `
+  <div class="card bg-dark" style="height:auto;width:18em">
   <img src="${background_image}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">${name}</h5>
-    <p class="card-text">${game.description || 'Loading...'}</p>
+  <div class="card-body text-light">
+  <div class="d-flex justify-content-between">
+  <p>${platforms.innerHTML}</p>
+  <p>${metacritic}</p>
+  </div>
+  <h3>${name}</h3>
+  <div class="expandable">
+  <p>More info</p>
+  <div class="arrow"></div>
+  ${expandableContent.outerHTML}
+</div>
   </div>
 </div>`;
 
 
-  cardContainer2.append(card);
+
+const cardContainers = [
+  { container: cardContainer2, count: cardContainer2.querySelectorAll('.card').length },
+  { container: cardContainer3, count: cardContainer3.querySelectorAll('.card').length },
+  { container: document.querySelector('#cardContainer4'), count: document.querySelector('#cardContainer4').querySelectorAll('.card').length }
+];
+
+const containerWithFewestCards = cardContainers.reduce((prev, curr) => {
+  return prev.count < curr.count ? prev : curr;
+});
+
+containerWithFewestCards.container.append(card);
+
 
   const gameData = await fetchGameData(id);
   const { description } = gameData;
-  card.querySelector('.card-text').innerHTML = description;
+  {/* card.querySelector('.card-text').innerHTML = description; */}
 };
 
 fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    data.results.forEach(renderCard);
+    data.results.forEach((elem,index) => {
+      renderCard(elem,index)
+    });
   });
 
   document.querySelector('#searchBar').addEventListener('click',(e)=> {
@@ -62,3 +119,23 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
 
     handleSearchBar(true,countID);
   })
+
+  window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
+      pageCounter+=1
+      fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api + '&page=' + pageCounter)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+
+    data.results.forEach((elem,index) => {
+      renderCard(elem,index)
+    });
+    window.removeEventListener('scroll', scrollListener);
+  });
+    }
+  });
+
+  window.addEventListener('scroll', scrollListener);

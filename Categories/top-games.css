@@ -2,6 +2,13 @@
   box-sizing: border-box;
 }
 
+.carousel-image :hover {
+    backdrop-filter: blur(10px);
+    filter: blur(4px);
+    transition: 0.5s ease;
+
+}
+
 @font-face {
     font-family: myFirstFont;
     src: url(images/AerologicaRegular-K7day.ttf);

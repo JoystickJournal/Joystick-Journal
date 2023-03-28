@@ -408,7 +408,6 @@ card.addEventListener('click', () => {
               carouselItem.innerHTML = `
               <div>
                 <img src="${backgroundImage}" class="d-block w-100" id="carouselImages" alt="...">
-                <p>${filteredArray[i].description}</p>
                 </div>
                 <div class="carousel-caption d-none d-md-block">
                   <h5>${filteredArray[i].name}</h5>
@@ -424,7 +423,6 @@ card.addEventListener('click', () => {
               carouselItem.innerHTML = `
               <div>
                 <img src="${backgroundImage}" class="d-block w-100" id="carouselImages" alt="...">
-                <p>${filteredArray[i].description}</p>
                 </div>
                 <div class="carousel-caption d-none d-md-block">
                   <h5>${filteredArray[i].name}</h5>

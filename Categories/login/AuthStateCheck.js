@@ -103,5 +103,6 @@ Expand
         });
     } else {
         console.log('User is signed out.')
+        document.querySelector('#wishListButton').style.display = "none"
     }
 });

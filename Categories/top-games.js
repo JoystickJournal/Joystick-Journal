@@ -400,13 +400,17 @@ card.addEventListener('click', () => {
       .then(data => {
         let filteredArray = data.results
         for (let i = 0; i < filteredArray.length - 1; i++) {
+          console.log(filteredArray[i])
           if (i < 1) {
             fetchBackgroundImage(filteredArray[i].id).then(backgroundImage => {
               let carouselItem = document.createElement('div')
               carouselItem.classList.add('carousel-item', 'active', 'carousel-image')
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
-                <img src="${backgroundImage}" class="d-block w-100" alt="...">
+              <div>
+                <img src="${backgroundImage}" class="d-block w-100" id="carouselImages" alt="...">
+                <p>${filteredArray[i].description}</p>
+                </div>
                 <div class="carousel-caption d-none d-md-block">
                   <h5>${filteredArray[i].name}</h5>
                 </div>
@@ -419,7 +423,10 @@ card.addEventListener('click', () => {
               carouselItem.classList.add('carousel-item', 'carousel-image')
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
-                <img src="${backgroundImage}" class="d-block w-100" alt="...">
+              <div>
+                <img src="${backgroundImage}" class="d-block w-100" id="carouselImages" alt="...">
+                <p>${filteredArray[i].description}</p>
+                </div>
                 <div class="carousel-caption d-none d-md-block">
                   <h5>${filteredArray[i].name}</h5>
                 </div>

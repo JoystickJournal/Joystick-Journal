@@ -42,7 +42,7 @@ const renderCard = async (game,count) => {
      if(elem.platform.name == 'Xbox') {
       return `<i class="fa-brands fa-xbox" style="color: #ffffff; margin:0 0.25em;"></i>`
     }
-    else if(elem.platform.name == 'Playstation') {
+    else if(elem.platform.name == 'PlayStation') {
       return `<i class="fa-brands fa-playstation" style="color: #ffffff; margin:0 0.25em;"></i>`
     }
     else if(elem.platform.name == 'PC') {
@@ -78,11 +78,15 @@ const formattedDate = date.toLocaleDateString("en-US", options);
     text.innerText = 'Compatability: ' + platArr.join(', ')
     const metaText = document.createElement('p');
     metaText.innerText = 'Metacritic: ' + metacritic + '/100'
-
-    console.log(genres, released)
+    const release = document.createElement('p');
+    release.innerText = 'Release Date: ' + released
+    const genreText = document.createElement('p');
+    genreText.innerText = 'Genres: ' + genres.map((genre) =>  genre.name).join(', ');
+    description.append(genreText);
+    description.append(release);
     description.append(text);
-    description. append(metaText)
-    card.append(description)
+    description. append(metaText);
+    card.append(description);
   }, {once: true})
 
   card.innerHTML = `

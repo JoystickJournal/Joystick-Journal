@@ -5,7 +5,6 @@ const modal1 = document.querySelector('#exampleModal')
 
 const loadingScreen = document.getElementById('loading-screen');
 
-console.log(userState)
 
 let counter = 10
 

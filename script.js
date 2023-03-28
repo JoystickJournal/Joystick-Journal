@@ -48,88 +48,88 @@ async function cardDetails(){
 
 cardDetails()
 
-async function firstDescription(){
-    try{
-        const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
-        const data = await response.json();
-        const id = data.results[0].id;
-        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
-        const data2 = await response2.json();
-        firstDes.innerText = data2.description_raw
-    }
-    catch{
-          console.log('failed')
-    }
-}
+// async function firstDescription(){
+//     try{
+//         const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
+//         const data = await response.json();
+//         const id = data.results[0].id;
+//         const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
+//         const data2 = await response2.json();
+//         firstDes.innerText = data2.description_raw
+//     }
+//     catch{
+//           console.log('failed')
+//     }
+// }
 
-firstDescription();
+// firstDescription();
 
-async function secDescription(){
-    try{
-        const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
-        const data = await response.json();
-        const id = data.results[1].id;
-        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
-        const data2 = await response2.json();
-        secDes.innerText = data2.description_raw
-    }
-    catch{
-          console.log('failed')
-    }
-}
+// async function secDescription(){
+//     try{
+//         const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
+//         const data = await response.json();
+//         const id = data.results[1].id;
+//         const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
+//         const data2 = await response2.json();
+//         secDes.innerText = data2.description_raw
+//     }
+//     catch{
+//           console.log('failed')
+//     }
+// }
 
-secDescription();
+// secDescription();
 
-async function thirdDescription(){
-    try{
-        const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
-        const data = await response.json();
-        const id = data.results[2].id;
-        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
-        const data2 = await response2.json();
-        thirdDes.innerText = data2.description_raw
-    }
-    catch{
-          console.log('failed')
-    }
-}
+// async function thirdDescription(){
+//     try{
+//         const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
+//         const data = await response.json();
+//         const id = data.results[2].id;
+//         const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
+//         const data2 = await response2.json();
+//         thirdDes.innerText = data2.description_raw
+//     }
+//     catch{
+//           console.log('failed')
+//     }
+// }
 
-thirdDescription();
+// thirdDescription();
 
-async function fourthDescription(){
-    try{
-        const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
-        const data = await response.json();
-        const id = data.results[3].id;
-        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
-        const data2 = await response2.json();
-        let paragraph = data2.description_raw
-        let thirdPeriodIndex = paragraph.indexOf(".", paragraph.indexOf(".") + 1);
-        let newParagraph = paragraph.slice(0, thirdPeriodIndex + 1);
-        fourthDes.innerText = newParagraph;
-    }
-    catch{
-          console.log('failed')
-    }
-}
+// async function fourthDescription(){
+//     try{
+//         const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
+//         const data = await response.json();
+//         const id = data.results[3].id;
+//         const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
+//         const data2 = await response2.json();
+//         let paragraph = data2.description_raw
+//         let thirdPeriodIndex = paragraph.indexOf(".", paragraph.indexOf(".") + 1);
+//         let newParagraph = paragraph.slice(0, thirdPeriodIndex + 1);
+//         fourthDes.innerText = newParagraph;
+//     }
+//     catch{
+//           console.log('failed')
+//     }
+// }
 
-fourthDescription();
+// fourthDescription();
 
-async function fifthDescription(){
-    try{
-        const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
-        const data = await response.json();
-        const id = data.results[5].id;
-        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
-        const data2 = await response2.json();
-        let paragraph = data2.description_raw
-        let thirdPeriodIndex = paragraph.indexOf(".", paragraph.indexOf(".") + 1);
-        let newParagraph = paragraph.slice(0, thirdPeriodIndex + 1);
-        fifthDes.innerText = newParagraph;
-    }
-    catch{
-          console.log('failed')
-    }
-}
+// async function fifthDescription(){
+//     try{
+//         const response = await fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=89cf756f80b344b4b86793092bb3a028');
+//         const data = await response.json();
+//         const id = data.results[5].id;
+//         const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=89cf756f80b344b4b86793092bb3a028`);
+//         const data2 = await response2.json();
+//         let paragraph = data2.description_raw
+//         let thirdPeriodIndex = paragraph.indexOf(".", paragraph.indexOf(".") + 1);
+//         let newParagraph = paragraph.slice(0, thirdPeriodIndex + 1);
+//         fifthDes.innerText = newParagraph;
+//     }
+//     catch{
+//           console.log('failed')
+//     }
+// }
 
-fifthDescription();
+// fifthDescription();

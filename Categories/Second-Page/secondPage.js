@@ -1,7 +1,6 @@
 const cardContainer2 = document.querySelector('#cardContainer2')
 const cardContainer3 = document.querySelector('#cardContainer3')
 
-
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
 let countID = 0
@@ -31,7 +30,7 @@ const fetchGameData = async (id) => {
 
   localStorage.setItem(cacheKey, JSON.stringify(data));
 
-  console.log(`Fetched data for game ${id}`);
+  console.log(data);
 
   return data;
 };
@@ -53,7 +52,10 @@ const renderCard = async (game,count) => {
       return `<i class="fa-brands fa-linux" style="color: #ffffff; margin:0 0.25em;"></i>`
     }
   })
-  const dateString = released;
+
+
+
+const dateString = released;
 const date = new Date(dateString);
 const options = { month: "short", day: "numeric", year: "numeric" };
 const formattedDate = date.toLocaleDateString("en-US", options);
@@ -67,6 +69,21 @@ const formattedDate = date.toLocaleDateString("en-US", options);
     <div class="release-date">${formattedDate}</div>
     <div class="genres">${genres.map(genre => genre.name).join(', ')}</div>
   `;
+
+  card.addEventListener('click', async () => {
+    const description = document.createElement('div');
+    description.setAttribute('class', 'descriptionBox')
+    const text = document.createElement('p');
+    const platArr = parent_platforms.map((platform) =>  platform.platform.name)
+    text.innerText = 'Compatability: ' + platArr.join(', ')
+    const metaText = document.createElement('p');
+    metaText.innerText = 'Metacritic: ' + metacritic + '/100'
+
+    console.log(genres, released)
+    description.append(text);
+    description. append(metaText)
+    card.append(description)
+  }, {once: true})
 
   card.innerHTML = `
   <div class="card bg-dark" style="height:auto;width:18em">

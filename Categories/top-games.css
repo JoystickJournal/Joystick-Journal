@@ -100,7 +100,12 @@
   width:90%
 }
 
-
+.descriptionBox {
+  background-color: #212529;
+  color: white;
+  width: 285px;
+  border-radius: 3%;
+}
 
 .carousel-image img {
   height: 600px;

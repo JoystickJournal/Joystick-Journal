@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JoystickJournal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="images/8e8842f41354e45e8137924eff96e091.ico/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/8e8842f41354e45e8137924eff96e091.ico/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/8e8842f41354e45e8137924eff96e091.ico/apple-icon-72x72.png">
@@ -18,13 +21,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/8e8842f41354e45e8137924eff96e091.ico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="images/8e8842f41354e45e8137924eff96e091.ico/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/8e8842f41354e45e8137924eff96e091.ico/favicon-16x16.png">
-    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/6.0.2/firebase-ui-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
     <script src="https://kit.fontawesome.com/3232dc6896.js" crossorigin="anonymous"></script>
-    <script src="login/loginAuth.js"></script>
-    <script src="login/AuthStateCheck.js" defer></script>
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
@@ -35,35 +32,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="top-games.css">
 </head>
-<body class="bg-black">
-  <div class="offcanvas offcanvas-start bg-black text-light" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Wishlist</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div>
-        Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-      </div>
-    </div>
-  </div>
+<body>
   <!-- Navigation-->
   <nav class="navbar sticky-top navbar-expand-lg d-flex justify-content-center">
 
     <div class="container px-2 px-lg-3 mx-0" style="width: 100vw;">
-      <button class="btn mx-5" id="wishListButton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-        <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
-      </button>
+
         <img class = "w-auto h-100 mx-3" src="images/oie_transparent (2).png">
         <a class="navbar-brand fs-1" id="logo" href="../index.html">JOYSTICK JOURNAL</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            </ul>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <form class="form-inline d-flex">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search for games" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 mx-3" id="searchBar" type="submit" data-bs-target="#exampleModal" data-bs-toggle="modal">Search</button>
               </form>
+              <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+                <button class="btn mx-5" id="wishListButton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                  <i class="fa-solid fa-bookmark" style="color: #000000;"></i>
+                  </button>
+                </ul>
         </div>
     </div>
 </nav>
@@ -71,10 +58,10 @@
 <header class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white d-flex flex-column">
-            <h1 class="display-4 fw-bolder mb-5">Hottest Games Right Now</h1>
-            <section class="carousel-section">
+            <h1 class="display-4 fw-bolder mb-3">Trending</h1>
+            <section class="carousel-section rounded">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
+                    <div class="carousel-inner rounded">
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -89,8 +76,11 @@
         </div>
     </div>
 </header>
-<div class="text-center text-white d-flex justify-content-center" id="genreContainer">
-    <h1 class="display-4 fw-bolder">Popular Genres</h1>
+<div class="text-center text-white d-flex flex-column" id="genreContainer">
+    <h1 class="display-4 fw-bolder d-flex mb-5 mt-5 justify-content-center">Popular Genres</h1>
+    <div class="d-flex justify-content-center" id="gameCardContainer">
+      <div class="row" id="genres"></div>
+    </div>
 </div>
 <!-- Section-->
 
@@ -102,7 +92,7 @@
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-md-down">
-      <div class="modal-content  bg-black">
+      <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Games</h1>
           <button type="button" class="btn-close-white" id="searchBarModal" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -118,12 +108,10 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center" id="">
-  <div class="row" id="genres"></div>
-</div>
+
   <div class="modal fade" id="advancedModal" tabindex="-1" aria-labelledby="advancedModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark text-light">
+      <div class="modal-content text-black" id="advancedModalContent">
         <div class="modal-header">
           <h5 class="modal-title" id="advancedModalLabel"></h5>
           <button type="button" class="btn-close-white" aria-label="Close"></button>

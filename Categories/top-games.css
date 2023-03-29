@@ -1,34 +1,56 @@
 *{
   box-sizing: border-box;
+  font-family: 'Bebas Neue', cursive;
 }
 
-.carousel-image :hover {
+/* .carousel-image :hover {
     backdrop-filter: blur(10px);
     filter: blur(4px);
     transition: 0.5s ease;
 
-}
+} */
 
 @font-face {
     font-family: myFirstFont;
     src: url(images/AerologicaRegular-K7day.ttf);
   }
 
+
   #logo{
-    font-family:myFirstFont;
-    color: white;
+    color: black;
   }
   body {
-    background-color: black;
+    background-color: chocolate;
   }
+  
 
   .navbar {
-    background-color: black;
-    opacity: 90%;
+    background-color: #FFFFF1;
+        opacity: 90%;
   }
 
-#hoverCard:hover {
-  transform: scale(1.05) rotate(5deg);}
+  #carouselContainer{
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  #videoGameCaourselCap{
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 1); /* semi-transparent black */
+    padding: 10px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10%;
+}
+#hoverCard {
+  border: black 4px solid;
+}
+
+#hoverCard :hover {
+  transition: 0.2s ease-in;
+  transform: scale(1.05) scale(103%);
+}
 
   /* Set initial styles for the game data container */
 #game-data {
@@ -65,11 +87,20 @@
   /* Added flex properties */
   flex: 0 0 calc(33.33% - 1rem);
   margin-bottom: 1rem;
+  background-color: chocolate;
 }
 
 /* CSS code to hide modals by default */
 .modal {
   display: none;
+}
+
+.modal-content {
+  background-color: #008080;
+}
+
+#advancedModalContent {
+  background-color: #ADD8E6;
 }
 
 /* CSS code to show modals when a specific class is added */
@@ -156,4 +187,19 @@
   border-width: 0 0.5rem 0.5rem 0.5rem;
   border-color: transparent transparent #fff transparent;
   position: absolute;
+}
+#genreContainer {
+  background-color:#ADD8E6 ;
+  border-top: 2px white solid;
+}
+
+@media only screen and (max-width: 600px) {
+  #gameCardContainer {
+    flex-direction: column !important;
+    align-items: center;
+  }
+}
+
+footer {
+  border-top: #FFFFF1 2px solid;
 }

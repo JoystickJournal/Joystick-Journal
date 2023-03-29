@@ -1,0 +1,25 @@
+.row {
+    background-color: #ADD8E6;
+    border: white 5px solid;
+}
+
+#cardContainer4{
+    width: fit-content;
+}
+
+#cardContainer3{
+    width: fit-content;
+}
+
+#cardContainer2{
+    width: fit-content;
+}
+
+.row {
+    width: fit-content;
+}
+
+
+#advancedModalContent {
+    background-color: #ADD8E6;
+}

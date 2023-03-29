@@ -1,4 +1,5 @@
 const modalBody =document.querySelector('#advanced')
+
 const modal2 = document.querySelector('#advancedModal')
 
 const modal1 = document.querySelector('#exampleModal')
@@ -184,7 +185,7 @@ const displayGameDetails = async (gameId) => {
 
     const image = document.createElement('img')
 
-    image.src = data.background_image_additional
+    image.src = data.background_image
 
     image.style.width = '100%'
 
@@ -195,6 +196,10 @@ const displayGameDetails = async (gameId) => {
     } else {
       desc.textContent = 'No description available.';
     }
+
+    const DescriptionAlert = document.createElement('h4')
+
+    DescriptionAlert.textContent = 'Description'
 
 
     heartAndTextcontainer.addEventListener('click', (e) => {
@@ -208,22 +213,13 @@ const displayGameDetails = async (gameId) => {
       localStorage.setItem('wishListData', JSON.stringify(data))
       console.log(JSON.parse(localStorage.getItem('wishListData')))
     }, {once:true})
-    // heart.addEventListener('click',function () {
-    //   let obj = {}
-    //   obj.title = data.name
-    //   obj.rating = data.rating
-    //   obj.description = data.description
-    //   obj.image = data.background_image_additional
-    //   wishListArray.push(obj)
-    //   userWishlistRef.child(obj).set(true)
-    //   console.log(wishListArray)
-    // })
 
     // Clear the modal body and add the game data elements
     modalBody.innerHTML = '';
     modalBody.appendChild(title);
     modalBody.appendChild(image)
     modalBody.appendChild(div);
+    modalBody.append(DescriptionAlert)
     modalBody.append(desc);
     console.log(desc)
     // Show the modal

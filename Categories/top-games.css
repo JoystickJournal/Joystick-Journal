@@ -43,9 +43,14 @@
     height: fit-content;
     border-radius: 10%;
 }
+#hoverCard {
+  border: black 4px solid;
+}
 
-#hoverCard:hover {
-  transform: scale(1.05) rotate(5deg);}
+#hoverCard :hover {
+  transition: 0.2s ease-in;
+  transform: scale(1.05) scale(103%);
+}
 
   /* Set initial styles for the game data container */
 #game-data {
@@ -82,7 +87,7 @@
   /* Added flex properties */
   flex: 0 0 calc(33.33% - 1rem);
   margin-bottom: 1rem;
-  background-color: #9A7B4F;
+  background-color: chocolate;
 }
 
 /* CSS code to hide modals by default */
@@ -91,11 +96,11 @@
 }
 
 .modal-content {
-  background-color: #8B5742;
+  background-color: #008080;
 }
 
 #advancedModalContent {
-  background-color: #5C3728;
+  background-color: #ADD8E6;
 }
 
 /* CSS code to show modals when a specific class is added */
@@ -182,6 +187,10 @@
   border-width: 0 0.5rem 0.5rem 0.5rem;
   border-color: transparent transparent #fff transparent;
   position: absolute;
+}
+#genreContainer {
+  background-color:#ADD8E6 ;
+  border-top: 2px white solid;
 }
 
 @media only screen and (max-width: 600px) {

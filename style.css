@@ -3,14 +3,54 @@
   font-family: 'Bebas Neue', cursive;
 }
 body{
-    background-color:chocolate;
     overflow:hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     justify-items: auto;
     width: 100vw;
+}
+
+#backgroundChoclate {
+  background-color: chocolate;
+  z-index: 1;
+  left: 0;
+  transition: all 0.8s ease;
+}
+
+main{
+  z-index: 3;
+}
+
+#backgroundBlue {
+  background-color: #ADD8E6;
+  z-index: 2;
+  right: 0;
+  transition: all 0.5s ease;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.position-absolute {
+  position: absolute;
+  top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .w-50 {
+    width: 100%;
+  }
+  #backgroundBlue {
+    right: initial;
+    left: 0;
+  }
 }
 
 canvas{
@@ -21,7 +61,7 @@ canvas{
 }
 
 #title{
-    color: white;
+    color: black;
     /* padding-top: 2%;
     padding-bottom: 4%; */
     font-family: 'Bebas Neue', cursive;
@@ -29,6 +69,7 @@ canvas{
 }
 
 #container{
+  position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -70,8 +111,8 @@ img{
   padding: 0.6em 2em;
   border: none;
   outline: none;
-  color: rgb(255, 255, 255);
-  background-color: chocolate;
+  color: black;
+  background: linear-gradient(#ADD8E6, chocolate);
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -81,9 +122,14 @@ img{
   touch-action: manipulation;
   margin-top: 2%;
   text-decoration: none;
+  transition: all 0.37s ease-in;
 }
 
-#getStarted:before {
+#getStarted :hover{
+  transform: scale(1.05);
+}
+
+/* #getStarted:before {
   content: "";
   background: linear-gradient(
     45deg,
@@ -109,7 +155,7 @@ img{
   animation: glowing-button-85 20s linear infinite;
   transition: opacity 0.3s ease-in-out;
   border-radius: 10px;
-}
+} */
 
 @keyframes glowing-button-85 {
   0% {
@@ -129,7 +175,7 @@ img{
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: chocolate;
+  background: linear-gradient(to right,#ADD8E6, chocolate);
   left: 0;
   top: 0;
   border-radius: 10px;
@@ -148,4 +194,9 @@ img{
 
 .carousel-inner {
   border-radius: 10%;
+}
+
+.slide {
+  width: 100% !important;
+  z-index: 9999 !important;
 }

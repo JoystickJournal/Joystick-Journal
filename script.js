@@ -133,3 +133,13 @@ cardDetails()
 // }
 
 // fifthDescription();
+
+const slideButton = document.querySelector(".slideButton");
+const backgroundChoclate = document.getElementById("backgroundChoclate");
+
+slideButton.addEventListener("click", function() {
+  backgroundChoclate.classList.toggle("slide");
+  setTimeout(function () {
+    window.location = "Categories/login/login.html"
+  },1000)
+});

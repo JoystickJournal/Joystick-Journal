@@ -107,10 +107,11 @@ function handleSearchBar(visible,count) {
         },'')}</p>
       </div>
     </div>
-        <a href="#" id="cardButton${count}" class="btn btn-primary">View More</a>
+        <a href="#" id="cardButton${count}" class="btn btn-outline-light">View More</a>
       </div>`;
 
       body.append(listElement);
+
 
       if (visible) {
         document

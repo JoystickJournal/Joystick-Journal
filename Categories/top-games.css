@@ -218,3 +218,7 @@ footer {
   text-shadow: none
 
 }
+
+.card-body {
+  text-shadow: none;
+}

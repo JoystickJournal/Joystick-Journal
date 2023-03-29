@@ -271,6 +271,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
     
     const title = document.createElement('h2');
     title.textContent = genre.name;
+    
 
     card.classList.add('card', 'mb-5'); // Add 'mb-5' class for margin
     // card.style.backgroundImage = `url(${genre.image_background})`;
@@ -282,7 +283,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
 
     card.innerHTML = `
     <div class="card-body my-0 py-0">
-    <h5 style = "color:#FFFFF1">${genre.name}</h5>
+    <h5 style = "color:chocolate;text-shadow:none;font-size:2rem">${genre.name}</h5>
     </div>
     <img src="${genre.image_background}" class="card-img-top img-fluid rounded" alt="..." style="backgroundPosition:center;backgroundSize:cover;backgroundRepeat:no-repeat;height:300px">
  `

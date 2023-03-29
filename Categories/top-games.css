@@ -1,6 +1,7 @@
 *{
   box-sizing: border-box;
   font-family: 'Bebas Neue', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* .carousel-image :hover {
@@ -202,4 +203,14 @@
 
 footer {
   border-top: #FFFFF1 2px solid;
+}
+
+#searchBar {
+  text-shadow: none
+
+}
+
+#searchInput {
+  text-shadow: none
+
 }

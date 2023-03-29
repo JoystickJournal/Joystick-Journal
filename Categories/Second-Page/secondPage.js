@@ -14,7 +14,9 @@ console.log(genreName)
 if(genreName == 'board games') {
   genreName = 'board-games'
 }
-
+if(genreName == 'rpg') {
+  genreName = 'role-playing-games-rpg'
+}
 
 const fetchGameData = async (id) => {
   const cacheKey = `game-${id}`;

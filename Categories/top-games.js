@@ -1,4 +1,5 @@
 const modalBody =document.querySelector('#advanced')
+
 const modal2 = document.querySelector('#advancedModal')
 
 const modal1 = document.querySelector('#exampleModal')
@@ -185,7 +186,7 @@ const displayGameDetails = async (gameId) => {
 
     const image = document.createElement('img')
 
-    image.src = data.background_image_additional
+    image.src = data.background_image
 
     image.style.width = '100%'
 
@@ -196,6 +197,10 @@ const displayGameDetails = async (gameId) => {
     } else {
       desc.textContent = 'No description available.';
     }
+
+    const DescriptionAlert = document.createElement('h4')
+
+    DescriptionAlert.textContent = 'Description'
 
     // heart.addEventListener('click',function () {
     //   let obj = {}
@@ -213,6 +218,7 @@ const displayGameDetails = async (gameId) => {
     modalBody.appendChild(title);
     modalBody.appendChild(image)
     modalBody.appendChild(div);
+    modalBody.append(DescriptionAlert)
     modalBody.append(desc);
     console.log(desc)
     // Show the modal

@@ -16,6 +16,10 @@
     src: url(images/AerologicaRegular-K7day.ttf);
   }
 
+  /* #header{
+    display: flex;
+    flex-direction: column;
+  } */
 
   #logo{
     color: black;

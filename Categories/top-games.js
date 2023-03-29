@@ -9,7 +9,6 @@ const loadingScreen = document.getElementById('loading-screen');
 
 let counter = 10
 
-const wishListArray = []
 
 function showModal1() {
   modal1.classList.add("show");
@@ -164,7 +163,7 @@ const displayGameDetails = async (gameId) => {
 
     const heartCaption = document.createElement('h5')
 
-    heartCaption.textContent = `Click here to wishlist!`
+    heartCaption.textContent = `Click here to add to wishlist!`
 
     const heartAndTextcontainer = document.createElement('div')
 
@@ -202,16 +201,18 @@ const displayGameDetails = async (gameId) => {
 
     DescriptionAlert.textContent = 'Description'
 
-    // heart.addEventListener('click',function () {
-    //   let obj = {}
-    //   obj.title = data.name
-    //   obj.rating = data.rating
-    //   obj.description = data.description
-    //   obj.image = data.background_image_additional
-    //   wishListArray.push(obj)
-    //   userWishlistRef.child(obj).set(true)
-    //   console.log(wishListArray)
-    // })
+
+    heartAndTextcontainer.addEventListener('click', (e) => {
+
+      let card = document.createElement('div')
+      card.append(title);
+      card.append(image);
+      let data = JSON.parse(localStorage.getItem('wishListData')) || []
+      console.log(card,card.outerHTML)
+      data.push(card.outerHTML);
+      localStorage.setItem('wishListData', JSON.stringify(data))
+      console.log(JSON.parse(localStorage.getItem('wishListData')))
+    }, {once:true})
 
     // Clear the modal body and add the game data elements
     modalBody.innerHTML = '';

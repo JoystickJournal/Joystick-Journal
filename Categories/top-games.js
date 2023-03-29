@@ -367,7 +367,7 @@ card.addEventListener('click', () => {
               <div>
                 <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
-                <div class="carousel-caption d-none d-md-flex justify-content-between">
+                <div class="carousel-caption d-none d-md-flex" id="carouselContainer">
                   <h5 id="videoGameCaourselCap">${filteredArray[i].name}</h5>
                 </div>
               </div>`

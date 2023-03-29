@@ -3,6 +3,7 @@
   font-family: 'Bebas Neue', cursive;
 }
 body{
+  background-color: #ADD8E6;
     overflow:hidden;
     display: flex;
     flex-direction: row;
@@ -16,7 +17,8 @@ body{
   background-color: chocolate;
   z-index: 1;
   left: 0;
-  transition: all 0.8s ease;
+  transition: left 0.5s ease,
+              width 0s ease-in
 }
 
 main{
@@ -27,7 +29,8 @@ main{
   background-color: #ADD8E6;
   z-index: 2;
   right: 0;
-  transition: all 0.5s ease;
+  transition: left 0.5s ease,
+
 }
 
 .w-50 {
@@ -199,4 +202,8 @@ img{
 .slide {
   width: 100% !important;
   z-index: 9999 !important;
+}
+
+#backgroundChoclate.slide {
+  transition-duration: 0.8s; /* set a longer duration for position change */
 }

@@ -96,26 +96,18 @@ function handleSearchBar(visible,count) {
       listElement.style.display = 'flex';
       listElement.style.justifyContent = 'center';
       listElement.innerHTML = `<div class="mb-5 mx-5 h-100 w-100">
-        <div class="card h-100 w-100">
-          <!-- Product details-->
-          <div class="card-body " style="z-index: 1;">
-            <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder text-light">${elem.name}</h5>
-              <!-- Product price-->
-            </div>
-          </div>
-          <!-- Product actions-->
-          <div class="card-footer pt-0 border-top-0 bg-transparent" style="z-index: 1;">
-            <div class="text-center mt-5"><a class="btn btn-dark mt-auto" data-bs-toggle="collapse" href="#collapseExample${count}" role="button" aria-expanded="false" aria-controls="collapseExample"><p class="text-light my-0">Definition</p></a></div>
-            <div class="collapse text-center"  id="collapseExample${count}"  style="z-index: 1;">
-              <p class="card-text fw-bold text-dark"></p>
-              <a href="#" id="cardButton${count}" class="btn btn-primary">View More</a>
-            </div>
-          </div>
-          <!-- Product image-->
-          <div class="card-img-overlay" style="background-image: url('${elem.background_image}'); opacity: 1; pointer-events: none; background-size: cover;"></div>
-        </div>
+      <h5 class="fw-bolder text-light">${elem.name}</h5>
+      <div class="card" style="width: 18rem;">
+      <img src="${elem.background_image}" class="card-img-top" alt="...">
+      <div class="card-body">
+      <h5>Tags</h5>
+        <p class="card-text">${elem.tags.reduce((acc,curr)=> {
+          acc+= curr.name + ', '
+          return acc
+        },'')}</p>
+      </div>
+    </div>
+        <a href="#" id="cardButton${count}" class="btn btn-primary">View More</a>
       </div>`;
 
       body.append(listElement);
@@ -267,14 +259,25 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
   data.results.forEach(genre => {
     // Create a new element for the genre card
     const card = document.createElement('div');
-    card.style.visibility="hidden"
+    card.style.visibility = "hidden"
+    
+    const title = document.createElement('h2');
+    title.textContent = genre.name;
+
     card.classList.add('card', 'mb-5'); // Add 'mb-5' class for margin
-    card.style.backgroundImage = `url(${genre.image_background})`;
-    card.style.backgroundPosition = "center"
-    card.style.backgroundSize= "cover"
-    card.style.backgroundRepeat ="no-repeat"
-    card.style.width="300px"
-    card.style.height="300px"
+    // card.style.backgroundImage = `url(${genre.image_background})`;
+    // card.style.backgroundPosition = "center"
+    // card.style.backgroundSize= "cover"
+    // card.style.backgroundRepeat ="no-repeat"
+    card.style.backgroundColor = 'transparent'
+    card.style.border = "0"
+
+    card.innerHTML = `
+    <div class="card-body my-0 py-0">
+    <h5 style = "color:#FFFFF1">${genre.name}</h5>
+    </div>
+    <img src="${genre.image_background}" class="card-img-top img-fluid rounded" alt="..." style="backgroundPosition:center;backgroundSize:cover;backgroundRepeat:no-repeat;height:300px">
+ `
 
     card.setAttribute('id', 'hoverCard')
 
@@ -282,54 +285,12 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
       card.style.cursor ='pointer'
     })
 
-    // Create the card body
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
-
-
-    // Create the card title
-    const cardTitle = document.createElement('h5');
-    cardTitle.classList.add('card-title', 'text-light', 'fw-bolder', 'animated');
-    cardTitle.textContent = genre.name;
-    cardBody.appendChild(cardTitle);
-    cardBody.style.display="flex"
-    cardBody.style.justifyContent="center"
-
-    // Add the card body to the card
-    card.appendChild(cardBody);
     console.log(genre.name)
     // Add event listener to each genre card
 // Add event listener to each genre card
 card.addEventListener('click', () => {
   localStorage.setItem('genreName', genre.name);
-  card.style.width="100%"
-  card.style.height="100%"
-  // Check if game data is already in local storage
-  const cachedGameData = JSON.parse(localStorage.getItem(genre.slug));
-  if (cachedGameData) {
-    // Display game data from local storage
     window.location.href= "Second-page/second-page.html"
-
-    displayGameData(cachedGameData);
-  } else {
-    // Fetch game data for the selected genre
-    fetch(`https://api.rawg.io/api/games?genres=${genre.slug}&ordering=-rating&key=` + config.api)
-      .then(response => response.json())
-      .then(data => {
-        // Cache game data in local storage
-        localStorage.setItem(genre.slug, JSON.stringify(data.results));
-        window.location.href= "Second-page/second-page.html"
-
-        // Display game data
-        displayGameData(data.results);
-
-        // Add the "expanded" class to the game data container after displaying the data
-        gameDataContainer.classList.add('w-100'); // Change class to w-100
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }
 
 });
     
@@ -338,10 +299,7 @@ card.addEventListener('click', () => {
     // Add the genre card to the container
     const col = document.createElement('div');
     col.style.width="auto"
-    col.appendChild(card); // Remove 'col' class from parent element
-    col.addEventListener('click', function(){
-
-    })
+    col.append(card); // Remove 'col' class from parent element
     genresContainer.appendChild(card);
   });
 })
@@ -407,10 +365,10 @@ card.addEventListener('click', () => {
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
               <div>
-                <img src="${backgroundImage}" class="d-block w-100" id="carouselImages" alt="...">
+                <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>${filteredArray[i].name}</h5>
+                <div class="carousel-caption d-none d-md-flex justify-content-between">
+                  <h5 id="videoGameCaourselCap">${filteredArray[i].name}</h5>
                 </div>
               </div>`
               carousel.append(carouselItem)
@@ -422,10 +380,10 @@ card.addEventListener('click', () => {
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
               <div>
-                <img src="${backgroundImage}" class="d-block w-100" id="carouselImages" alt="...">
+                <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>${filteredArray[i].name}</h5>
+                <div class="carousel-caption text-center d-none d-md-flex" id="carouselContainer">
+                  <h5 id="videoGameCaourselCap">${filteredArray[i].name}</h5>
                 </div>
               </div>`
               carousel.append(carouselItem)

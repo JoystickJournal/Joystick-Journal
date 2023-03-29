@@ -1,10 +1,9 @@
-@font-face{
-    font-family: myFont;
-    src: url('1679892914_original.ttf');
+*{
+  box-sizing: border-box;
+  font-family: 'Bebas Neue', cursive;
 }
-
 body{
-    background-color:black;
+    background-color:chocolate;
     overflow:hidden;
     display: flex;
     flex-direction: column;
@@ -25,7 +24,7 @@ canvas{
     color: white;
     /* padding-top: 2%;
     padding-bottom: 4%; */
-    font-family: myFont;
+    font-family: 'Bebas Neue', cursive;
     text-align: center;
 }
 
@@ -72,7 +71,7 @@ img{
   border: none;
   outline: none;
   color: rgb(255, 255, 255);
-  background-color: #000000;
+  background-color: chocolate;
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -81,6 +80,7 @@ img{
   -webkit-user-select: none;
   touch-action: manipulation;
   margin-top: 2%;
+  text-decoration: none;
 }
 
 #getStarted:before {
@@ -129,7 +129,7 @@ img{
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #222;
+  background-color: chocolate;
   left: 0;
   top: 0;
   border-radius: 10px;

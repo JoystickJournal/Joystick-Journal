@@ -1,5 +1,11 @@
+
+* {
+    font-family: 'Bebas Neue', cursive;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: black;
+    background-color:chocolate;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -7,10 +13,6 @@ body {
     justify-content: center;
 }
 
-@font-face {
-    font-family: myFont;
-    src: url(../images/AerologicaRegular-K7day.ttf);
-}
 
 
 #title {
@@ -19,6 +21,9 @@ body {
     font-size: xx-large;
 }
 
+#button {
+    background-color: chocolate;
+}
 
 
 header {

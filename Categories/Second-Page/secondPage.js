@@ -20,6 +20,7 @@ console.log(genreName)
 const addToWishlist = (name, image) => {
   const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
   wishlist.push({ name, image });
+  console.log(wishlist)
   localStorage.setItem('wishListData', JSON.stringify(wishlist));
 };
 
@@ -92,7 +93,8 @@ card.append(moreInfoIcon)
 const cardContainers = [
   { container: cardContainer2, count: cardContainer2.querySelectorAll('.card').length },
   { container: cardContainer3, count: cardContainer3.querySelectorAll('.card').length },
-  { container: document.querySelector('#cardContainer4'), count: document.querySelector('#cardContainer4').querySelectorAll('.card').length }
+  { container: document.querySelector('#cardContainer4'), count: document.querySelector('#cardContainer4').querySelectorAll('.card').length },
+  { container: document.querySelector('#cardContainer5'), count: document.querySelector('#cardContainer5').querySelectorAll('.card').length }
 ];
 
 const containerWithFewestCards = cardContainers.reduce((prev, curr) => {

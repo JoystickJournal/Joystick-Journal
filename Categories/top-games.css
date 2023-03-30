@@ -28,6 +28,23 @@
     background-color: chocolate;
   }
   
+  #wishList{
+    color: black;
+  }
+
+  #wishListAnchor{
+    text-decoration: none;
+    text-align: center;
+  }
+
+  #wishListAnchor :hover{
+    scale: 130%;
+    color: blue;
+  }
+
+  #wishListButton {
+    margin-top: 0.7em !important;
+  }
 
   .navbar {
     background-color: #FFFFF1;

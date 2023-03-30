@@ -24,7 +24,7 @@
     color: black;
   }
   body {
-    background-color: chocolate;
+    background-color: #FFC300;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
   }
@@ -201,7 +201,7 @@
   position: absolute;
 }
 #genreContainer {
-  background-color:#1E87D2 ;
+  background-color:#001D3D ;
   border-top: 2px white solid;
 }
 
@@ -229,6 +229,11 @@ footer {
 .card-body {
   text-shadow: none;
 }
+
+
+
+
+
 
 .fade-in {
 	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;

@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color:chocolate;
+    background-color:#001D3D;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -17,7 +17,7 @@ body {
 
 
 #button {
-    background-color: chocolate;
+    background-color: #001D3D;
 }
 
 

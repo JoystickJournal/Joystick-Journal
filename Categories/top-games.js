@@ -291,7 +291,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
 
     card.innerHTML = `
     <div class="card-body my-0 py-0">
-    <h5 style = "color:#011516;-webkit-text-stroke:#1E2DD2;-webkit-text-stroke-width:thin;font-size:2rem;">${genre.name}</h5>
+    <h5 style = "color:white;-webkit-text-stroke:black;-webkit-text-stroke-width:thin;font-size:2rem;">${genre.name}</h5>
     </div>
     <img src="${genre.image_background}" class="card-img-top img-fluid rounded" alt="..." style="backgroundPosition:center;backgroundSize:cover;backgroundRepeat:no-repeat;height:300px">
  `
@@ -381,7 +381,7 @@ card.addEventListener('click', () => {
               carouselItem.classList.add('carousel-item', 'active', 'carousel-image')
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
-              <div>
+              <div class ="image-container">
                 <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
                 <div class="carousel-caption d-none d-md-flex" id="carouselContainer">
@@ -396,7 +396,7 @@ card.addEventListener('click', () => {
               carouselItem.classList.add('carousel-item', 'carousel-image')
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
-              <div>
+              <div class ="image-container">
                 <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
                 <div class="carousel-caption text-center d-none d-md-flex" id="carouselContainer">

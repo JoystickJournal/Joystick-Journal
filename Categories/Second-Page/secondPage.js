@@ -64,7 +64,7 @@ const renderCard = async (game,count) => {
     }
     else if(elem.platform.name == 'Linux') {
       return `<i class="fa-brands fa-linux" style="color: #ffffff; margin:0 0.25em;"></i>`
-    }
+    } 
   })
 
 
@@ -126,7 +126,7 @@ card.outerHTML = `
 <div class="card-body text-light">
 <div class="d-flex justify-content-between align-center mb-3">
 <p class="mb-0 h-auto text-center">${platforms.innerHTML}</p>
-<button onclick="addToWishlist('${name}', '${background_image}')" id="wishListbtn" class="btn btn-outline-light btn-sm">Wishlist</button>
+<button onclick="addToWishlist('${name}', '${background_image}')" id="wishListbtn" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-plus"></i> &nbsp; Wishlist</button>
 </div>
 <h3>${name}</h3>
 <div class="expandable">

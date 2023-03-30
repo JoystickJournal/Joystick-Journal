@@ -3,13 +3,25 @@ const cardContainer3 = document.querySelector('#cardContainer3')
 
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
+let moreInfoIcon = document.createElement('div')
+
+moreInfoIcon.innerHTML = `<i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>`
+
 let countID = 0
+
+let collapseID = 0
 
 let pageCounter = 1
 
 let isFetchingData = false;
 
 console.log(genreName)
+
+const addToWishlist = (name, image) => {
+  const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
+  wishlist.push({ name, image });
+  localStorage.setItem('wishListData', JSON.stringify(wishlist));
+};
 
 if(genreName == 'board games') {
   genreName = 'board-games'
@@ -52,7 +64,7 @@ const renderCard = async (game,count) => {
     }
     else if(elem.platform.name == 'Linux') {
       return `<i class="fa-brands fa-linux" style="color: #ffffff; margin:0 0.25em;"></i>`
-    }
+    } 
   })
 
 
@@ -72,42 +84,9 @@ const formattedDate = date.toLocaleDateString("en-US", options);
     <div class="genres">${genres.map(genre => genre.name).join(', ')}</div>
   `;
 
-  card.addEventListener('click', async () => {
-    const description = document.createElement('div');
-    description.setAttribute('class', 'descriptionBox')
-    const text = document.createElement('p');
-    const platArr = parent_platforms.map((platform) =>  platform.platform.name)
-    text.innerText = 'Compatability: ' + platArr.join(', ')
-    const metaText = document.createElement('p');
-    metaText.innerText = 'Metacritic: ' + metacritic + '/100'
-    const release = document.createElement('p');
-    release.innerText = 'Release Date: ' + released
-    const genreText = document.createElement('p');
-    genreText.innerText = 'Genres: ' + genres.map((genre) =>  genre.name).join(', ');
-    description.append(genreText);
-    description.append(release);
-    description.append(text);
-    description. append(metaText);
-    card.append(description);
-  }, {once: true})
+  const expandableDescription = document.createElement('div');
 
-  card.innerHTML = `
-  <div class="card bg-dark" style="height:auto;width:18em">
-  <img src="${background_image}" class="card-img-top" alt="...">
-  <div class="card-body text-light">
-  <div class="d-flex justify-content-between">
-  <p>${platforms.innerHTML}</p>
-  <p>${metacritic}</p>
-  </div>
-  <h3>${name}</h3>
-  <div class="expandable">
-  <p>More info</p>
-  <div class="arrow"></div>
-  ${expandableContent.outerHTML}
-</div>
-  </div>
-</div>`;
-
+card.append(moreInfoIcon)
 
 
 const cardContainers = [
@@ -122,6 +101,46 @@ const containerWithFewestCards = cardContainers.reduce((prev, curr) => {
 
 containerWithFewestCards.container.append(card);
 
+expandableDescription.setAttribute('class', 'descriptionBox')
+const text = document.createElement('p');
+const platArr = parent_platforms.map((platform) =>  platform.platform.name)
+text.innerText = 'Compatability: ' + platArr.join(', ')
+const metaText = document.createElement('p');
+metaText.innerText = 'Metacritic: ' + metacritic + '/100'
+const release = document.createElement('p');
+release.innerText = 'Release Date: ' + formattedDate
+const genreText = document.createElement('p');
+genreText.innerText = 'Genres: ' + genres.map((genre) =>  genre.name).join(', ');
+expandableDescription.append(genreText);
+expandableDescription.append(release);
+expandableDescription.append(text);
+expandableDescription. append(metaText);
+expandableDescription.style.width="auto"
+card.append(expandableDescription);
+
+let strExpansion = expandableDescription.outerHTML
+
+card.outerHTML = `
+<div class="card bg-dark" style="height:auto;width:18em">
+<img src="${background_image}" class="card-img-top border-bottom border-3" alt="...">
+<div class="card-body text-light">
+<div class="d-flex justify-content-between align-center mb-3">
+<p class="mb-0 h-auto text-center">${platforms.innerHTML}</p>
+<button onclick="addToWishlist('${name}', '${background_image}')" id="wishListbtn" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-plus"></i> &nbsp; Wishlist</button>
+</div>
+<h3>${name}</h3>
+<div class="expandable">
+<p>More info</p>
+<i class="fa-solid fa-angle-down" id="arrowIcon" style="color: #ffffff;" data-bs-toggle="collapse" data-bs-target="#${collapseID}" aria-expanded="false" aria-controls="collapseExample"></i>
+</div>
+<div class="collapse" id="${collapseID}">
+${strExpansion}
+</div>
+</div>
+</div>
+`;
+
+collapseID+=1
 
   const gameData = await fetchGameData(id);
   const { description } = gameData;
@@ -158,6 +177,15 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
     });
     window.removeEventListener('scroll', scrollListener);
   });
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    // Check if the clicked element matches the selector for the i element
+    if (event.target.matches('.fa-angle-down, .fa-angle-up')) {
+      // Toggle the classes on the clicked element
+      event.target.classList.toggle('fa-angle-down');
+      event.target.classList.toggle('fa-angle-up');
     }
   });
 

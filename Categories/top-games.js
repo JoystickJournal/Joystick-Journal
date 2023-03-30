@@ -171,7 +171,7 @@ const displayGameDetails = async (gameId) => {
 
     heartAndTextcontainer.setAttribute('id','heartAndTextcontainer')
 
-    heart.innerHTML = `<i class="fa-solid fa-heart" style="color: #db0606;" id="Wishlist"></i>`
+    heart.innerHTML = `<i class="fa-solid fa-heart" id="Wishlist"></i>`
 
     div.append(rating,heartAndTextcontainer)
 
@@ -190,7 +190,9 @@ const displayGameDetails = async (gameId) => {
     image.style.width = '100%'
 
 
+
     const desc = document.createElement('p');
+    desc.style.fontSize = "larger"
     if (data.description) {
       desc.innerHTML = data.description;
     } else {
@@ -203,10 +205,16 @@ const displayGameDetails = async (gameId) => {
 
 
     heartAndTextcontainer.addEventListener('click', (e) => {
-
+      heart.backgroundColor ="blue"
+      heart.classList.add('animate__animated')
+      heart.classList.add('animate__animated')
+      heart.style.transition="all 0.5s ease"
+      heart.style.color = "#db0606"
       let card = document.createElement('div')
-      card.append(title);
-      card.append(image);
+      let wishlistTitle = title.outerHTML
+      let wishlistImage = image.outerHTML
+      card.append(wishlistTitle);
+      card.append(wishlistImage);
       let data = JSON.parse(localStorage.getItem('wishListData')) || []
       console.log(card,card.outerHTML)
       data.push(card.outerHTML);
@@ -224,7 +232,7 @@ const displayGameDetails = async (gameId) => {
     console.log(desc)
     // Show the modal
     showModal2();
-    modal2.addEventListener('click',function() {
+    document.querySelector('#closeButton').addEventListener('click',function() {
       hideModal2()
       showModal1()
 
@@ -283,7 +291,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
 
     card.innerHTML = `
     <div class="card-body my-0 py-0">
-    <h5 style = "color:chocolate;text-shadow:none;font-size:2rem">${genre.name}</h5>
+    <h5 style = "color:#011516;-webkit-text-stroke:#1E2DD2;-webkit-text-stroke-width:thin;font-size:2rem;">${genre.name}</h5>
     </div>
     <img src="${genre.image_background}" class="card-img-top img-fluid rounded" alt="..." style="backgroundPosition:center;backgroundSize:cover;backgroundRepeat:no-repeat;height:300px">
  `
@@ -401,8 +409,10 @@ card.addEventListener('click', () => {
         }
       })
   }
+  document.addEventListener('DOMContentLoaded', function() {
+    CarouselAppend();
+  });
 
-  document.addEventListener('DOMContentLoaded',CarouselAppend)
 
 
 

@@ -1,6 +1,7 @@
 .row {
-    background-color: #ADD8E6;
+    background-color: #1E87D2;
     border: white 5px solid;
+    border-radius: 10px;
 }
 
 #cardContainer4{

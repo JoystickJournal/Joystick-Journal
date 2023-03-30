@@ -95,7 +95,7 @@ function handleSearchBar(visible,count) {
       const listElement = document.createElement('li');
       listElement.style.display = 'flex';
       listElement.style.justifyContent = 'center';
-      listElement.innerHTML = `<div class="mb-5 mx-5 h-100 w-100">
+      listElement.innerHTML = `<div class="mb-5 mx-5 h-100 w-100 text-light">
       <h5 class="fw-bolder text-light">${elem.name}</h5>
       <div class="card" style="width: 18rem;">
       <img src="${elem.background_image}" class="card-img-top" alt="...">
@@ -216,8 +216,12 @@ const displayGameDetails = async (gameId) => {
       card.append(wishlistTitle);
       card.append(wishlistImage);
       let data = JSON.parse(localStorage.getItem('wishListData')) || []
-      console.log(card,card.outerHTML)
-      data.push(card.outerHTML);
+      let obj = {
+        name: title.textContent,
+        image:image.src
+      }
+      console.log(obj)
+      data.push(obj);
       localStorage.setItem('wishListData', JSON.stringify(data))
       console.log(JSON.parse(localStorage.getItem('wishListData')))
     }, {once:true})

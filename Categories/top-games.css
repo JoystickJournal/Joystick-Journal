@@ -110,7 +110,8 @@
   /* Added flex properties */
   flex: 0 0 calc(33.33% - 1rem);
   margin-bottom: 1rem;
-  background-color: #1E87D2;
+  background-color: #001D3D;
+  color: white;
 }
 
 /* CSS code to hide modals by default */
@@ -119,11 +120,11 @@
 }
 
 .modal-content {
-  background-color: #36b6b6;
+  background-color: #FFC300;
 }
 
 #advancedModalContent {
-  background-color: #ADD8E6;
+  background-color: #003566;
   text-shadow: none !important;
   
 }

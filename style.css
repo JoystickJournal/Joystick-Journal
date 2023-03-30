@@ -1,7 +1,6 @@
 *{
   box-sizing: border-box;
   font-family: 'Bebas Neue', cursive;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 body{
   background-color: #001D3D;
@@ -25,6 +24,8 @@ body{
 
 main{
   z-index: 3;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
 }
 
 #backgroundBlue {

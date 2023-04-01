@@ -138,7 +138,7 @@ const slideButton = document.querySelector(".slideButton");
 const backgroundChoclate = document.getElementById("backgroundChoclate");
 
 slideButton.addEventListener("click", function() {
-  backgroundChoclate.classList.toggle("slide");
+  backgroundChoclate.classList.toggle("slide-in-right");
   setTimeout(function () {
     window.location = "Categories/login/login.html"
   },1000)
@@ -146,10 +146,18 @@ slideButton.addEventListener("click", function() {
 
 const chocolate = document.getElementById('backgroundChoclate');
 
-window.addEventListener('mousemove', (e) => {
-  const xPosition = e.clientX;
-  const width = window.innerWidth;
-  const percentage = xPosition / width;
-  const newWidth = percentage * 100;
-  chocolate.style.width = `${newWidth}%`;
-});
+// window.addEventListener('mousemove', (e) => {
+//   let rect = chocolate.getBoundingClientRect();
+//   const xPosition = e.clientX;
+//   const width = window.innerWidth;
+//   const percentage = xPosition / width;
+//   const newWidth = percentage * 100;
+//   chocolate.style.width = `${newWidth}%`;
+//   if (e.clientX >= rect.innerWidth) {
+//     slideButton.classList.remove("btn-outline-dark");
+//     slideButton.classList.add("btn-outline-light");
+//   } else {
+//     slideButton.classList.remove("btn-outline-light");
+//     slideButton.classList.add("btn-outline-dark");
+//   }
+// });

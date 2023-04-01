@@ -1,10 +1,185 @@
+
+
+function hideLoadingOverlay() {
+  document.querySelector("#loading-overlay").style.display = "none";
+  document.body.classList.remove('overlay-visible');
+
+}
 const modalBody =document.querySelector('#advanced')
 
+window.onload = function() {
+  // Hide the loading screen when the page has finished loading
+  hideLoadingOverlay() 
+
+}
+const displayGameDetails = async (gameId) => {
+  try {
+    // Fetch data for the selected game
+    const response = await fetch(
+      `https://api.rawg.io/api/games/${gameId}?key=${config.api}`
+    );
+    const data = await response.json();
+    const genres = data.genres.map((genre) => genre.slug);
+
+    // Create elements to display the game data
+    const title = document.createElement("h2");
+    title.textContent = data.name;
+
+    const rating = document.createElement("h5");
+    rating.textContent = `Rating: ${data.rating}`;
+
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.justifyContent = "space-between";
+    div.style.alignItems = "space-between";
+    div.style.borderBottom = "2px white solid";
+
+    const heart = document.createElement("i");
+    heart.innerHTML = `<i class="fa-solid fa-heart" id="Wishlist"></i>`;
+
+    const heartCaption = document.createElement("h5");
+    heartCaption.textContent = `Click here to add to wishlist!`;
+
+    const heartAndTextcontainer = document.createElement("div");
+    heartAndTextcontainer.append(heart, heartCaption);
+    heartAndTextcontainer.setAttribute("id", "heartAndTextcontainer");
+
+    div.append(rating, heartAndTextcontainer);
+
+    const image = document.createElement("img");
+    image.src = data.background_image;
+    image.style.width = "100%";
+
+    const desc = document.createElement("p");
+    desc.style.fontSize = "larger";
+    if (data.description) {
+      desc.innerHTML = data.description;
+    } else {
+      desc.textContent = "No description available.";
+    }
+
+    const DescriptionAlert = document.createElement("h4");
+    DescriptionAlert.textContent = "Description";
+
+    // Add event listener to image element to fetch and play game trailer
+    image.addEventListener("mouseover", async (e) => {
+      console.log(data);
+      const trailerResponse = await fetch(
+        `https://api.rawg.io/api/games/${data.slug}/movies?key=${config.api}`
+      );
+      const trailerData = await trailerResponse.json();
+      console.log(trailerData);
+      if (trailerData.count > 0) {
+        const trailerUrl = trailerData.results[0].data.max;
+        const iframe = document.createElement("iframe");
+        iframe.src = trailerUrl;
+        iframe.width = "100%";
+        iframe.height = "500px";
+        image.replaceWith(iframe);
+        document
+          .querySelector("#advancedModal")
+          .addEventListener("hide.bs.modal", function () {
+            modalBody.innerHTML = "";
+          });
+      }
+    });
+
+    // Add event listener to description element to expand and collapse
+    const descButton = document.createElement("button");
+    descButton.textContent = "Expand/Collapse";
+    descButton.addEventListener("click", (e) => {
+      desc.classList.toggle("collapsed");
+      if (desc.classList.contains("collapsed")) {
+        desc.style.height = "3rem";
+        descButton.textContent = "Expand";
+      } else {
+        desc.style.height = "auto";
+        descButton.textContent = "Collapse";
+      }
+    });
+    modalBody.innerHTML = "";
+    modalBody.appendChild(title);
+    modalBody.appendChild(image);
+    modalBody.appendChild(div);
+    modalBody.appendChild(DescriptionAlert);
+    modalBody.appendChild(desc);
+    // Show the modal
+
+    const recommendedGamesResponse = await fetch(
+      `https://api.rawg.io/api/games?key=${config.api}&genres=${genres.join(
+        ","
+      )}&exclude_games=${gameId}&page_size=4`
+    );
+    const recommendedGamesData = await recommendedGamesResponse.json();
+    const filteredRecommendedGames = recommendedGamesData.results.filter(
+      (game) => game.id !== data.id
+    );
+    if (filteredRecommendedGames.length > 0) {
+      const recommendedGamesTitle = document.createElement("h3");
+      recommendedGamesTitle.style.marginTop ="50px"
+      recommendedGamesTitle.textContent = "Recommended Games";
+      modalBody.appendChild(recommendedGamesTitle);
+
+      const recommendedGamesDiv = document.createElement("div");
+      recommendedGamesDiv.classList.add("recommended-games");
+
+
+      filteredRecommendedGames.forEach((game,index) => {
+        const recommendedGame = document.createElement("div");
+        recommendedGame.classList.add("recommended-game");
+        recommendedGame.style.marginTop="50px"
+
+        const recommendedGameTitle = document.createElement("h5");
+        recommendedGameTitle.textContent = game.name;
+        recommendedGame.appendChild(recommendedGameTitle);
+
+        const recommendedGameImage = document.createElement("img");
+        recommendedGameImage.style.width = "100%";
+        recommendedGameImage.src = game.background_image;
+        recommendedGame.appendChild(recommendedGameImage);
+        recommendedGameImage.addEventListener("click", function () {
+          displayGameDetails(game.id)
+        });
+        recommendedGameImage.style.cursor = "pointer"
+
+        recommendedGamesDiv.appendChild(recommendedGame);
+      });
+
+      modalBody.appendChild(recommendedGamesDiv);
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
 const modal2 = document.querySelector('#advancedModal')
+
+function showModal2() {
+  modal2.classList.add("show");
+}
+function handleCarouselItemClick(gameId) {
+  // call your async function here, passing in the gameId parameter
+  displayGameDetails(gameId);
+  showModal2() 
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  function showLoadingOverlay() {
+    document.body.classList.add('overlay-visible');
+    document.querySelector("#loading-overlay").style.display = "block";
+  }
+  
+  showLoadingOverlay();
+
+
 
 const modal1 = document.querySelector('#exampleModal')
 
-const loadingScreen = document.getElementById('loading-screen');
+const searchBarContainer = document.querySelector('#searchBarContainer1')
+
+const searchBarContainer2 = document.querySelector('#searchBarContainer2')
+
+
 
 
 let counter = 10
@@ -18,9 +193,7 @@ function hideModal1() {
   modal1.classList.remove("show");
 }
 
-function showModal2() {
-  modal2.classList.add("show");
-}
+
 
 function hideModal2() {
   modal2.classList.remove("show");
@@ -88,14 +261,15 @@ function handleSearchBar(visible,count) {
   const body = document.querySelector('.list');
   const input = document.querySelector('input').value;
     document.querySelector('.modal-title').textContent = `Search Results for: "${input}"`
-    body.innerHTML = '';
-
+  searchBarContainer.innerHTML = ''
+  searchBarContainer2.innerHTML = ''
+  localStorage.setItem('searchResult', JSON.stringify(input))
   searchGames(input).then((data) => {
     data.forEach((elem) => {
-      const listElement = document.createElement('li');
+      const listElement = document.createElement('div');
       listElement.style.display = 'flex';
       listElement.style.justifyContent = 'center';
-      listElement.innerHTML = `<div class="mb-5 mx-5 h-100 w-100 text-light">
+      listElement.innerHTML = `<div class="mb-5 mx-5 h-100 w-auto text-light">
       <h5 class="fw-bolder text-light">${elem.name}</h5>
       <div class="card" style="width: 18rem;">
       <img src="${elem.background_image}" class="card-img-top" alt="...">
@@ -110,7 +284,16 @@ function handleSearchBar(visible,count) {
         <a href="#" id="cardButton${count}" class="btn btn-outline-light">View More</a>
       </div>`;
 
-      body.append(listElement);
+      const searchContainers = [
+        { container: searchBarContainer, count: searchBarContainer.querySelectorAll('.card').length },
+        { container: searchBarContainer2, count: searchBarContainer2.querySelectorAll('.card').length },
+      ];
+      
+      const containerWithFewestCards = searchContainers.reduce((prev, curr) => {
+        return prev.count < curr.count ? prev : curr;
+      });
+
+      containerWithFewestCards.container.append(listElement);
 
 
       if (visible) {
@@ -128,11 +311,9 @@ function handleSearchBar(visible,count) {
 
 document.getElementById('searchBar').addEventListener('click', (e) => {
   e.preventDefault();
-
+  window.location = 'SearchResults/searchResults.html'
   handleSearchBar(true,counter);
 });
-
-handleSearchBar(false,counter);
 
 // View more buttons
 const viewMoreButtons = document.querySelectorAll('.btn-primary');
@@ -141,110 +322,8 @@ const viewMoreButtons = document.querySelectorAll('.btn-primary');
 const searchBar = document.getElementById('searchBar');
 
 // Function to fetch game data and display modal
-const displayGameDetails = async (gameId) => {
-  try {
-
-    // Fetch data for the selected game
-    const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=${config.api}`);
-    const data = await response.json();
-    console.log(data)
-    // Create elements to display the game data
-    const title = document.createElement('h2');
-    title.textContent = data.name;
-
-    const rating = document.createElement('h5');
-    rating.textContent = `Rating: ${data.rating}`;
-    
-
-    const div = document.createElement('div')
-
-    const heart = document.createElement('i')
 
 
-    const heartCaption = document.createElement('h5')
-
-    heartCaption.textContent = `Click here to add to wishlist!`
-
-    const heartAndTextcontainer = document.createElement('div')
-
-    heartAndTextcontainer.append(heart,heartCaption)
-
-    heartAndTextcontainer.setAttribute('id','heartAndTextcontainer')
-
-    heart.innerHTML = `<i class="fa-solid fa-heart" id="Wishlist"></i>`
-
-    div.append(rating,heartAndTextcontainer)
-
-    div.style.display='flex'
-
-    div.style.justifyContent='space-between'
-
-    div.style.alignItems='space-between'
-
-    div.style.borderBottom="2px white solid"
-
-    const image = document.createElement('img')
-
-    image.src = data.background_image
-
-    image.style.width = '100%'
-
-
-
-    const desc = document.createElement('p');
-    desc.style.fontSize = "larger"
-    if (data.description) {
-      desc.innerHTML = data.description;
-    } else {
-      desc.textContent = 'No description available.';
-    }
-
-    const DescriptionAlert = document.createElement('h4')
-
-    DescriptionAlert.textContent = 'Description'
-
-
-    heartAndTextcontainer.addEventListener('click', (e) => {
-      heart.backgroundColor ="blue"
-      heart.classList.add('animate__animated')
-      heart.classList.add('animate__animated')
-      heart.style.transition="all 0.5s ease"
-      heart.style.color = "#db0606"
-      let card = document.createElement('div')
-      let wishlistTitle = title.outerHTML
-      let wishlistImage = image.outerHTML
-      card.append(wishlistTitle);
-      card.append(wishlistImage);
-      let data = JSON.parse(localStorage.getItem('wishListData')) || []
-      let obj = {
-        name: title.textContent,
-        image:image.src
-      }
-      console.log(obj)
-      data.push(obj);
-      localStorage.setItem('wishListData', JSON.stringify(data))
-      console.log(JSON.parse(localStorage.getItem('wishListData')))
-    }, {once:true})
-
-    // Clear the modal body and add the game data elements
-    modalBody.innerHTML = '';
-    modalBody.appendChild(title);
-    modalBody.appendChild(image)
-    modalBody.appendChild(div);
-    modalBody.append(DescriptionAlert)
-    modalBody.append(desc);
-    console.log(desc)
-    // Show the modal
-    showModal2();
-    document.querySelector('#closeButton').addEventListener('click',function() {
-      hideModal2()
-      showModal1()
-
-    })
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
 
 // Event listener for view more buttons
 viewMoreButtons.forEach((button) => {
@@ -329,26 +408,7 @@ card.addEventListener('click', () => {
 });
 
   
-  // Function to display game data
-  function displayGameData(data) {
-    // Create an element to display the game data
-    const gameData = document.createElement('div');
-    gameData.style.width="auto"
-    // Add the game data to the element
-    data.forEach(game => {
-      const p = document.createElement('p');
-      p.textContent = game.name;
-      p.style.color = "black"
-      gameData.appendChild(p);
-    });
-  
-    // Add the game data element to the page
-    gameDataContainer.innerHTML = '';
-    gameDataContainer.appendChild(gameData);
-  
-    // Add a class to the game data container to trigger a transition
-    gameDataContainer.classList.add('show-game-data');
-  }
+
 
   const cardContainer = document.querySelector('#genres');
 
@@ -372,7 +432,6 @@ card.addEventListener('click', () => {
 
   function CarouselAppend() {
     const carousel = document.querySelector('.carousel-inner')
-    fcarouselItem = document.createElement('div')
     fetch('https://api.rawg.io/api/games/lists/main?ordering=-rating&key=' + config.api)
       .then(response => response.json())
       .then(data => {
@@ -382,11 +441,12 @@ card.addEventListener('click', () => {
           if (i < 1) {
             fetchBackgroundImage(filteredArray[i].id).then(backgroundImage => {
               let carouselItem = document.createElement('div')
+
               carouselItem.classList.add('carousel-item', 'active', 'carousel-image')
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
               <div class ="image-container">
-                <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
+                <img src="${backgroundImage}" onclick=" handleCarouselItemClick('${filteredArray[i].id}')" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
                 <div class="carousel-caption d-none d-md-flex" id="carouselContainer">
                   <h5 id="videoGameCaourselCap">${filteredArray[i].name}</h5>
@@ -397,11 +457,12 @@ card.addEventListener('click', () => {
           } else if (filteredArray[i].id !== filteredArray[i + 1].id) {
             fetchBackgroundImage(filteredArray[i].id).then(backgroundImage => {
               let carouselItem = document.createElement('div')
+
               carouselItem.classList.add('carousel-item', 'carousel-image')
               carouselItem.setAttribute('data-bs-interval', '10000')
               carouselItem.innerHTML = `
               <div class ="image-container">
-                <img src="${backgroundImage}" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
+                <img src="${backgroundImage}" onclick=" handleCarouselItemClick('${filteredArray[i].id}')" class="d-block w-100 img-fluid" id="carouselImages" alt="...">
                 </div>
                 <div class="carousel-caption text-center d-none d-md-flex" id="carouselContainer">
                   <h5 id="videoGameCaourselCap">${filteredArray[i].name}</h5>
@@ -413,11 +474,9 @@ card.addEventListener('click', () => {
         }
       })
   }
-  document.addEventListener('DOMContentLoaded', function() {
     CarouselAppend();
-  });
 
-
+});
 
 
 

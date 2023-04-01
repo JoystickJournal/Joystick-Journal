@@ -25,3 +25,10 @@ wishListRender.forEach(element => {
   });
   wishlistFewest.container.append(div)
 });
+
+document.querySelector('#searchBar').addEventListener('click',(e)=> {
+  e.preventDefault()
+  window.location = '../SearchResults/searchResults.html'
+
+  handleSearchBar(true,countID);
+})

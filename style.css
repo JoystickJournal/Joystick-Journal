@@ -3,7 +3,7 @@
   font-family: 'Bebas Neue', cursive;
 }
 body{
-  background-color: #001D3D;
+  background-color: #FFC300;
     overflow:hidden;
     display: flex;
     flex-direction: row;
@@ -14,13 +14,82 @@ body{
 }
 
 #backgroundChoclate {
-  background-color: 
-  #FFC300;
-  z-index: 1;
+  position: fixed;
+  z-index: 9999;
+  background-color: transparent;
+  z-index: 100;
+  width: 100%;
+  display: inline-block; /* Change the display property to inline-block */
   left: 0;
-  transition: left 0.5s ease,
-              width 0s ease-in
+  pointer-events: none;
+
 }
+
+.fade-in-fwd {
+	-webkit-animation: fade-in-fwd 0.6s ease-in-out both;
+	        animation: fade-in-fwd 0.6s ease-in-out both;
+}
+
+ @-webkit-keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  -webkit-animation: slide-in-right 0.7s ease-out both;
+  animation: slide-in-right 0.7s ease-out both;
+}
+
+
+@-webkit-keyframes slide-in-right {
+  0% {
+    background-color: #001D3D;
+
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    background-color: #001D3D;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    background-color: #001D3D;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 
 main{
   z-index: 3;
@@ -28,13 +97,6 @@ main{
 
 }
 
-#backgroundBlue {
-  background-color: #ADD8E6;
-  z-index: 2;
-  right: 0;
-  transition: left 0.5s ease,
-
-}
 
 .w-50 {
   width: 50%;
@@ -44,10 +106,6 @@ main{
   height: 100%;
 }
 
-.position-absolute {
-  position: absolute;
-  top: 0;
-}
 
 @media screen and (max-width: 768px) {
   .w-50 {
@@ -65,6 +123,8 @@ canvas{
 	left:0;
   z-index: -1000;
 }
+
+
 
 #title{
     color: black;

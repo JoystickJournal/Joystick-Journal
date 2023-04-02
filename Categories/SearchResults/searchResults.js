@@ -296,6 +296,13 @@ const displayGameDetails = async (gameId) => {
   }
 };
 
+document.querySelector('#searchBar').addEventListener('click',(e)=> {
+  e.preventDefault()
+  const input = document.querySelector('input').value;
+  localStorage.setItem('searchResult', JSON.stringify(input))
+  window.location = 'searchResults.html'
+})
+
 fetch(`https://api.rawg.io/api/games?key=${config.api}&search=${result}`)
   .then((response) => response.json())
   .then((data) => {

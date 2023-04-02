@@ -1,17 +1,28 @@
+const overlay = document.getElementById('overlay');
 
+document.querySelector('#closeButton').addEventListener('click', function(){
+  var modal = document.querySelector('#advancedModal');
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+  document.querySelector('body').classList.remove('modal-open');
+  document.querySelector('.modal-backdrop').remove();
+  document.querySelector('body').style.overflow = "visible"
+});
 
-function hideLoadingOverlay() {
-  document.querySelector("#loading-overlay").style.display = "none";
-  document.body.classList.remove('overlay-visible');
+document.querySelector('#advancedModal').addEventListener('click', function(event){
+  if (event.target === this) {
+    var modal = document.querySelector('#advancedModal');
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+    document.querySelector('body').classList.remove('modal-open');
+    document.querySelector('.modal-backdrop').remove();
+    document.querySelector('body').style.overflow = "visible"
+  }
+});
+var modal = document.querySelector('#advancedModal');
 
-}
 const modalBody =document.querySelector('#advanced')
 
-window.onload = function() {
-  // Hide the loading screen when the page has finished loading
-  hideLoadingOverlay() 
-
-}
 const displayGameDetails = async (gameId) => {
   try {
     // Fetch data for the selected game
@@ -159,17 +170,17 @@ function showModal2() {
 function handleCarouselItemClick(gameId) {
   // call your async function here, passing in the gameId parameter
   displayGameDetails(gameId);
-  showModal2() 
-
+  var modalBackdrop = document.querySelector('.modal-backdrop');
+  modal.classList.add('show');
+  modal.style.display = 'block';
+  var backdrop = document.createElement('div');
+  backdrop.classList.add('modal-backdrop', 'fade', 'show');
+  document.querySelector('body').appendChild(backdrop);
+  document.querySelector('body').classList.add('modal-open');
+  document.querySelector('body').style.overflow = "hidden"
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  function showLoadingOverlay() {
-    document.body.classList.add('overlay-visible');
-    document.querySelector("#loading-overlay").style.display = "block";
-  }
-  
-  showLoadingOverlay();
 
 
 
@@ -260,7 +271,7 @@ function fetchBackgroundImage(gameId) {
 function handleSearchBar(visible,count) {
   const body = document.querySelector('.list');
   const input = document.querySelector('input').value;
-    document.querySelector('.modal-title').textContent = `Search Results for: "${input}"`
+  document.querySelector('.modal-title').textContent = `Search Results for: "${input}"`
   searchBarContainer.innerHTML = ''
   searchBarContainer2.innerHTML = ''
   localStorage.setItem('searchResult', JSON.stringify(input))
@@ -311,7 +322,11 @@ function handleSearchBar(visible,count) {
 
 document.getElementById('searchBar').addEventListener('click', (e) => {
   e.preventDefault();
-  window.location = 'SearchResults/searchResults.html'
+  overlay.classList.add('show');
+  overlay.classList.add('fade-in');
+  const input = document.querySelector('input').value;
+  localStorage.setItem('searchResult', JSON.stringify(input))
+  setTimeout(function(){window.location = 'SearchResults/searchResults.html'},3000)
   handleSearchBar(true,counter);
 });
 

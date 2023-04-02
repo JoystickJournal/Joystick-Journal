@@ -328,43 +328,50 @@ footer {
 
 
   
-  #loading-overlay {
-    visibility: visible;
-    position: absolute;
+  #overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFC300; /* semi-transparent black */
+    z-index: 9999; /* make sure it appears on top of everything else */
+    transition: opacity 0.3s ease-in-out; /* add a transition effect for the fade in/out */
+    opacity: 0; /* initially set the opacity to 0 to hide the overlay */
+    pointer-events: none;
   }
   
-  #loading-spinner {
-    visibility: visible;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    animation: spin 2s linear infinite;
+  #overlay.show {
+    opacity: 1; /* Increase the opacity to make the overlay visible */
+    pointer-events: auto; /* Make the overlay active when it's visible */
   }
+
+  @-webkit-keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg); } }
   
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+    to {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg); } }
   
-  #loading-message {
-    visibility: hidden;
+  /**
+    * Traditional
+    *
+    * @author jh3y
+  */
+  .traditional:before {
+    -webkit-animation: spin .5s infinite linear;
+            animation: spin .5s infinite linear;
+    border-radius: 100%;
+    -webkit-box-shadow: inset -2px 0 0 0px var(--primary);
+            box-shadow: inset -2px 0 0 0px var(--primary);
+    content: '';
+    height: 50px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+    width: 50px; 
   }

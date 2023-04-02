@@ -31,6 +31,7 @@ window.onload = function() {
       const name = input.value
       if(name.length > 1) {
           document.querySelector('body').classList.add('fade-out-bck')
+          localStorage.setItem('userName', JSON.stringify(name))
           setTimeout(function () {
               window.location = '../top-games.html'
           },1000)

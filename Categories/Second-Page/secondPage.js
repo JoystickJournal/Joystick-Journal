@@ -2,6 +2,9 @@ const cardContainer2 = document.querySelector('#cardContainer2')
 const cardContainer3 = document.querySelector('#cardContainer3')
 
 const modalBody = document.querySelector('#advanced')
+
+
+
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
 let moreInfoIcon = document.createElement('div')
@@ -262,9 +265,7 @@ const displayGameDetails = async (gameId) => {
     // Show the modal
 
     const recommendedGamesResponse = await fetch(
-      `https://api.rawg.io/api/games?key=${config.api}&genres=${genres.join(
-        ","
-      )}&exclude_games=${gameId}&page_size=4`
+      `https://api.rawg.io/api/games?key=${config.api}&genres=${genres.join(",")}&exclude_games=${gameId}&page_size=4&ordering=random`
     );
     const recommendedGamesData = await recommendedGamesResponse.json();
     const filteredRecommendedGames = recommendedGamesData.results.filter(
@@ -320,8 +321,9 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
 
   document.querySelector('#searchBar').addEventListener('click',(e)=> {
     e.preventDefault()
+    const input = document.querySelector('input').value;
+    localStorage.setItem('searchResult', JSON.stringify(input))
     window.location = '../SearchResults/searchResults.html'
-
     handleSearchBar(true,countID);
   })
 

@@ -3,7 +3,8 @@ const wishListRender = JSON.parse(localStorage.getItem('wishListData')) || []
 const wishlistContainer = document.querySelector('#wishListContainer')
 
 const wishlistContainer2 = document.querySelector('#wishListContainer2')
-
+let userName = JSON.parse(localStorage.getItem('userName'))
+document.querySelector('#title').textContent = `${userName}'s wishlist`
 
 wishListRender.forEach(element => {
     const div = document.createElement('div')
@@ -28,6 +29,8 @@ wishListRender.forEach(element => {
 
 document.querySelector('#searchBar').addEventListener('click',(e)=> {
   e.preventDefault()
+  const input = document.querySelector('input').value;
+  localStorage.setItem('searchResult', JSON.stringify(input))
   window.location = '../SearchResults/searchResults.html'
 
   handleSearchBar(true,countID);

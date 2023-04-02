@@ -114,7 +114,7 @@
   /* Added flex properties */
   flex: 0 0 calc(33.33% - 1rem);
   margin-bottom: 1rem;
-  background-color: #001D3D;
+  background-color: black;
   color: white;
 }
 

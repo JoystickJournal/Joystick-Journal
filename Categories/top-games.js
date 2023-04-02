@@ -218,7 +218,7 @@ function fetchBackgroundImage(gameId) {
   const cachedBackgroundImages = JSON.parse(localStorage.getItem('backgroundImages')) || {};
   if (cachedBackgroundImages[gameId]) {
     // If the background image is already stored in the local storage, return it
-    console.log(`Retrieving background image for game ${gameId} from cache`);
+    // console.log(`Retrieving background image for game ${gameId} from cache`);
     return Promise.resolve(cachedBackgroundImages[gameId]);
   } else {
     // If the background image is not stored in the local storage, make the API request
@@ -227,7 +227,7 @@ function fetchBackgroundImage(gameId) {
       .then(response => response.json())
       .then(game => {
         // Store the game background image in the local storage
-        console.log(`Caching background image for game ${gameId} in local storage`);
+        // console.log(`Caching background image for game ${gameId} in local storage`);
         cachedBackgroundImages[gameId] = game.background_image;
         localStorage.setItem('backgroundImages', JSON.stringify(cachedBackgroundImages));
         // Return the game background image
@@ -243,7 +243,7 @@ function fetchBackgroundImage(gameId) {
     
     if (cachedResult && (now - cachedResult.timestamp) < cacheTime) {
       // Return the cached search results
-      console.log(`Retrieving search results for "${query}" from cache`);
+      // console.log(`Retrieving search results for "${query}" from cache`);
       return Promise.resolve(cachedResult.games);
     } else {
       // Make the API request and cache the search results
@@ -252,8 +252,8 @@ function fetchBackgroundImage(gameId) {
         .then(response => response.json())
         .then(data => {
           const games = data.results;
-          console.log(games)
-          console.log(`Caching search results for "${query}" in local storage`);
+          // console.log(games)
+          // console.log(`Caching search results for "${query}" in local storage`);
           cachedSearches[query] = { games, timestamp: now };
           localStorage.setItem('searches', JSON.stringify(cachedSearches));
           return games;
@@ -338,14 +338,12 @@ const searchBar = document.getElementById('searchBar');
 
 // Function to fetch game data and display modal
 
-
-
 // Event listener for view more buttons
 viewMoreButtons.forEach((button) => {
   button.addEventListener('click', async (e) => {
     
     e.preventDefault();
-    console.log('hello')
+    // console.log('hello')
     // Disable search bar functionality
     searchBar.removeEventListener('click', searchHandler);
 
@@ -400,7 +398,7 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
       card.style.cursor ='pointer'
     })
 
-    console.log(genre.name)
+    // console.log(genre.name)
     // Add event listener to each genre card
 // Add event listener to each genre card
 card.addEventListener('click', () => {
@@ -452,7 +450,7 @@ card.addEventListener('click', () => {
       .then(data => {
         let filteredArray = data.results
         for (let i = 0; i < filteredArray.length - 1; i++) {
-          console.log(filteredArray[i])
+          // console.log(filteredArray[i])
           if (i < 1) {
             fetchBackgroundImage(filteredArray[i].id).then(backgroundImage => {
               let carouselItem = document.createElement('div')
@@ -492,6 +490,5 @@ card.addEventListener('click', () => {
     CarouselAppend();
 
 });
-
 
 

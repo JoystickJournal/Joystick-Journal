@@ -373,3 +373,10 @@ footer {
     width: 50px; 
   }
   
+  #heartAndTextcontainer{
+    transition: all 0.3s ease-in;
+  }
+  #heartAndTextcontainer :hover{
+    cursor: pointer;
+    transform: scale(1.05);
+  }

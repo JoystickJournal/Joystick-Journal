@@ -1,5 +1,14 @@
 const result = localStorage.getItem("searchResult");
-
+const overlay = document.getElementById('overlay');
+document.querySelector('#closeButton').addEventListener('click', function(){
+  var modal = document.querySelector('#advancedModal');
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+  document.querySelector('body').classList.remove('modal-open');
+  document.querySelector('.modal-backdrop').remove();
+  document.querySelector('.modal-backdrop').remove();
+  document.querySelector('body').style.overflow = "visible"
+});
 const modalBody = document.querySelector("#advanced");
 
 let moreInfoIcon = document.createElement("div");
@@ -320,8 +329,16 @@ const displayGameDetails = async (gameId) => {
 document.querySelector('#searchBar').addEventListener('click',(e)=> {
   e.preventDefault()
   const input = document.querySelector('input').value;
+  overlay.classList.add('show');
+  overlay.classList.add('fade-in');
+  let nowTraveling = document.createElement('h3')
+  nowTraveling.textContent = `Searching for: "${input}"`
+  nowTraveling.style.marginBottom="2em"
+  nowTraveling.style.textAlign="center"
+  document.querySelector('.traditional').append(nowTraveling)
   localStorage.setItem('searchResult', JSON.stringify(input))
-  window.location = 'searchResults.html'
+  setTimeout(function(){window.location = 'searchResults.html'},1500)
+
 })
 
 fetch(`https://api.rawg.io/api/games?key=${config.api}&search=${result}`)

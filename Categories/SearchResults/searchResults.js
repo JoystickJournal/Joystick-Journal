@@ -1,59 +1,44 @@
-const cardContainer2 = document.querySelector('#cardContainer2')
-const cardContainer3 = document.querySelector('#cardContainer3')
+const result = localStorage.getItem("searchResult");
 
-const modalBody = document.querySelector('#advanced')
+const modalBody = document.querySelector("#advanced");
 
+let moreInfoIcon = document.createElement("div");
 
+moreInfoIcon.innerHTML = `<i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>`;
+let collapseID = 0;
 
-let genreName = localStorage.getItem('genreName').toLowerCase();
-
-let moreInfoIcon = document.createElement('div')
-
-moreInfoIcon.innerHTML = `<i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>`
-
-let countID = 0
-
-let collapseID = 0
-
-let pageCounter = 1
-
-let isFetchingData = false;
-
-// console.log(genreName)
-
-const addToWishlist = (name, image) => {
-  const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
-  wishlist.push({ name, image });
-  // console.log(wishlist)
-  localStorage.setItem('wishListData', JSON.stringify(wishlist));
-  style.backgroundColor = 'green'
+const isWishlisted = (name, image) => {
+  const wishlist = JSON.parse(localStorage.getItem("wishListData")) || [];
+  return wishlist.some((game) => game.name === name && game.image === image);
 };
+const addToWishlist = (name, background_image) => {
+  const wishlist = JSON.parse(localStorage.getItem("wishListData")) || [];
 
-if(genreName == 'board games') {
-  genreName = 'board-games'
-}
-if(genreName == 'rpg') {
-  genreName = 'role-playing-games-rpg'
-}
+  // Check if the item is already in the wishlist
+  const isAlreadyInWishlist = wishlist.some(
+    (item) => item.name === name && item.image === background_image
+  );
 
-const fetchGameData = async (id) => {
-  const cacheKey = `game-${id}`;
-  const cachedData = localStorage.getItem(cacheKey);
-
-  if (cachedData) {
-    // console.log(`Using cached data for game ${id}`);
-    return JSON.parse(cachedData);
+  // If the item is not in the wishlist, add it and update the button text
+  if (!isAlreadyInWishlist) {
+    wishlist.push({ name, image: background_image });
+    localStorage.setItem("wishListData", JSON.stringify(wishlist));
+    const button = document.querySelector(
+      `button[data-name="${name}"][data-image="${background_image}"]`
+    );
+    button.textContent = "Remove from Wishlist";
+  } else {
+    // If the item is already in the wishlist, update the button text
+    const button = document.querySelector(
+      `button[data-name="${name}"][data-image="${background_image}"]`
+    );
+    button.textContent = "Remove from Wishlist";
   }
-
-  const response = await fetch(`https://api.rawg.io/api/games/${id}?key=${config.api}`);
-  const data = await response.json();
-
-  localStorage.setItem(cacheKey, JSON.stringify(data));
-
-  // console.log(data);
-
-  return data;
 };
+
+document.querySelector(
+  "#header"
+).textContent = `Showing 20 Results for ${result}`;
 
 const renderCard = async (game, count) => {
   const {
@@ -165,7 +150,6 @@ const renderCard = async (game, count) => {
   </div>
   `;
 
-
   collapseID += 1;
 
   {
@@ -267,14 +251,16 @@ const displayGameDetails = async (gameId) => {
     // Show the modal
 
     const recommendedGamesResponse = await fetch(
-      `https://api.rawg.io/api/games?key=${config.api}&genres=${genres.join(",")}&exclude_games=${gameId}&page_size=4&ordering=random`
+      `https://api.rawg.io/api/games?key=${config.api}&genres=${genres.join(
+        ","
+      )}&exclude_games=${gameId}&page_size=4`
     );
     const recommendedGamesData = await recommendedGamesResponse.json();
     const filteredRecommendedGames = recommendedGamesData.results.filter(
       (game) => game.id !== data.id
     );
     if (filteredRecommendedGames.length > 0) {
-      const recommendedGamesTitle = document.createElement("h3");
+      const recommendedGamesTitle = document.createElement("h4");
       recommendedGamesTitle.style.marginTop ="50px"
       recommendedGamesTitle.textContent = "Recommended Games";
       modalBody.appendChild(recommendedGamesTitle);
@@ -299,7 +285,6 @@ const displayGameDetails = async (gameId) => {
         recommendedGameImage.addEventListener("click", function () {
           displayGameDetails(game.id)
         });
-        recommendedGameImage.style.cursor = "pointer"
 
         recommendedGamesDiv.appendChild(recommendedGame);
       });
@@ -309,54 +294,20 @@ const displayGameDetails = async (gameId) => {
   } catch (error) {
     console.error("Error fetching data:", error);
   }
+};
 
- 
+document.querySelector('#searchBar').addEventListener('click',(e)=> {
+  e.preventDefault()
+  const input = document.querySelector('input').value;
+  localStorage.setItem('searchResult', JSON.stringify(input))
+  window.location = 'searchResults.html'
+})
 
-
-fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
-  .then(response => response.json())
-  .then(data => {
-    // console.log(data);
-    data.results.forEach((elem,index) => {
-      renderCard(elem,index)
+fetch(`https://api.rawg.io/api/games?key=${config.api}&search=${result}`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    data.results.forEach((elem, index) => {
+      renderCard(elem, index);
     });
   });
-
-  document.querySelector('#searchBar').addEventListener('click',(e)=> {
-    e.preventDefault()
-    const input = document.querySelector('input').value;
-    localStorage.setItem('searchResult', JSON.stringify(input))
-    window.location = '../SearchResults/searchResults.html'
-    handleSearchBar(true,countID);
-  })
-
-  window.addEventListener('scroll', () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  
-    if (scrollTop + clientHeight >= scrollHeight - 5) {
-      pageCounter+=1
-      fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api + '&page=' + pageCounter)
-  .then(response => response.json())
-  .then(data => {
-    // console.log(data);
-
-    data.results.forEach((elem,index) => {
-      renderCard(elem,index)
-    });
-    window.removeEventListener('scroll', scrollListener);
-  });
-    }
-  });
-
-  document.addEventListener('click', function(event) {
-    // Check if the clicked element matches the selector for the i element
-    if (event.target.matches('.fa-angle-down, .fa-angle-up')) {
-      // Toggle the classes on the clicked element
-      event.target.classList.toggle('fa-angle-down');
-      event.target.classList.toggle('fa-angle-up');
-    }
-  });
-
-  window.addEventListener('scroll', scrollListener);
-
-

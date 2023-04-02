@@ -1,16 +1,7 @@
-
-
-#cardContainer4{
-    width: fit-content;
+body {
+    overflow: visible !important;
 }
 
-#cardContainer3{
-    width: fit-content;
-}
-
-#cardContainer2{
-    width: fit-content;
-}
 
 .row {
     width: fit-content;
@@ -18,5 +9,6 @@
 
 
 #advancedModalContent {
-    background-color: #ADD8E6;
+    color: white;
+    background-color: #003566;
 }

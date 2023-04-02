@@ -3,7 +3,8 @@ const wishListRender = JSON.parse(localStorage.getItem('wishListData')) || []
 const wishlistContainer = document.querySelector('#wishListContainer')
 
 const wishlistContainer2 = document.querySelector('#wishListContainer2')
-
+let userName = JSON.parse(localStorage.getItem('userName'))
+document.querySelector('#title').textContent = `${userName}'s wishlist`
 
 
 wishListRender.forEach(element => {
@@ -29,6 +30,15 @@ wishListRender.forEach(element => {
   wishlistFewest.container.append(div)
 });
 
+
+document.querySelector('#searchBar').addEventListener('click',(e)=> {
+  e.preventDefault()
+  const input = document.querySelector('input').value;
+  localStorage.setItem('searchResult', JSON.stringify(input))
+  window.location = '../SearchResults/searchResults.html'
+
+  handleSearchBar(true,countID);
+})
 
 const remove = document.querySelectorAll('.remove');
 

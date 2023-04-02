@@ -129,6 +129,7 @@ const displayGameDetails = async (gameId) => {
       const recommendedGamesTitle = document.createElement("h3");
       recommendedGamesTitle.style.marginTop ="50px"
       recommendedGamesTitle.textContent = "Recommended Games";
+      recommendedGamesTitle.style.backgroundColor = "black"
       modalBody.appendChild(recommendedGamesTitle);
 
       const recommendedGamesDiv = document.createElement("div");
@@ -146,6 +147,7 @@ const displayGameDetails = async (gameId) => {
 
         const recommendedGameImage = document.createElement("img");
         recommendedGameImage.style.width = "100%";
+        recommendedGameImage.style.borderRadius = "20px"
         recommendedGameImage.src = game.background_image;
         recommendedGame.appendChild(recommendedGameImage);
         recommendedGameImage.addEventListener("click", function () {
@@ -322,11 +324,16 @@ function handleSearchBar(visible,count) {
 
 document.getElementById('searchBar').addEventListener('click', (e) => {
   e.preventDefault();
+  const input = document.querySelector('input').value;
   overlay.classList.add('show');
   overlay.classList.add('fade-in');
-  const input = document.querySelector('input').value;
+  let nowTraveling = document.createElement('h3')
+  nowTraveling.textContent = `Searching for: "${input}"`
+  nowTraveling.style.marginBottom="2em"
+  nowTraveling.style.textAlign="center"
+  document.querySelector('.traditional').append(nowTraveling)
   localStorage.setItem('searchResult', JSON.stringify(input))
-  setTimeout(function(){window.location = 'SearchResults/searchResults.html'},3000)
+  setTimeout(function(){window.location = 'SearchResults/searchResults.html'},2200)
   handleSearchBar(true,counter);
 });
 
@@ -402,8 +409,15 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
     // Add event listener to each genre card
 // Add event listener to each genre card
 card.addEventListener('click', () => {
+  overlay.classList.add('show');
+  overlay.classList.add('fade-in');
+  let nowTraveling = document.createElement('h3')
+  nowTraveling.textContent = `Showing ${genre.name} Games`
+  nowTraveling.style.marginBottom="2em"
+  nowTraveling.style.textAlign="center"
+  document.querySelector('.traditional').append(nowTraveling)
   localStorage.setItem('genreName', genre.name);
-    window.location.href= "Second-page/second-page.html"
+  setTimeout(function() {window.location.href= "Second-page/second-page.html"},2200)
 
 });
     
@@ -488,7 +502,6 @@ card.addEventListener('click', () => {
       })
   }
     CarouselAppend();
-
 });
 
 

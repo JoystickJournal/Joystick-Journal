@@ -280,6 +280,8 @@ const displayGameDetails = async (gameId) => {
 
         const recommendedGameImage = document.createElement("img");
         recommendedGameImage.style.width = "100%";
+        recommendedGameImage.style.cursor = "pointer";
+        recommendedGameImage.style.borderRadius = "20px"
         recommendedGameImage.src = game.background_image;
         recommendedGame.appendChild(recommendedGameImage);
         recommendedGameImage.addEventListener("click", function () {

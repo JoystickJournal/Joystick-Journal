@@ -15,13 +15,14 @@ let pageCounter = 1
 
 let isFetchingData = false;
 
-console.log(genreName)
+// console.log(genreName)
 
 const addToWishlist = (name, image) => {
   const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
   wishlist.push({ name, image });
-  console.log(wishlist)
+  // console.log(wishlist)
   localStorage.setItem('wishListData', JSON.stringify(wishlist));
+  style.backgroundColor = 'green'
 };
 
 if(genreName == 'board games') {
@@ -36,7 +37,7 @@ const fetchGameData = async (id) => {
   const cachedData = localStorage.getItem(cacheKey);
 
   if (cachedData) {
-    console.log(`Using cached data for game ${id}`);
+    // console.log(`Using cached data for game ${id}`);
     return JSON.parse(cachedData);
   }
 
@@ -45,7 +46,7 @@ const fetchGameData = async (id) => {
 
   localStorage.setItem(cacheKey, JSON.stringify(data));
 
-  console.log(data);
+  // console.log(data);
 
   return data;
 };
@@ -142,6 +143,13 @@ ${strExpansion}
 </div>
 `;
 
+const wishListButton = document.querySelectorAll('#wishListbtn');
+wishListButton.forEach(button => {
+  button.addEventListener('click', (e) =>{
+    e.target.style.backgroundColor = 'green'
+  })
+})
+
 collapseID+=1
 
   const gameData = await fetchGameData(id);
@@ -152,7 +160,7 @@ collapseID+=1
 fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    // console.log(data);
     data.results.forEach((elem,index) => {
       renderCard(elem,index)
     });
@@ -172,7 +180,7 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
       fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api + '&page=' + pageCounter)
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    // console.log(data);
 
     data.results.forEach((elem,index) => {
       renderCard(elem,index)
@@ -192,3 +200,5 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
   });
 
   window.addEventListener('scroll', scrollListener);
+
+

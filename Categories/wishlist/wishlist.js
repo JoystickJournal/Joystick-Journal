@@ -5,23 +5,43 @@ const wishlistContainer = document.querySelector('#wishListContainer')
 const wishlistContainer2 = document.querySelector('#wishListContainer2')
 
 
+
 wishListRender.forEach(element => {
     const div = document.createElement('div')
-    div.innerHTML = `<div class="card h-25">
-    <img src="${element.image}" class="card-img-top" alt="...">
-    <div class="card-body bg-dark text-light">
+    div.innerHTML = `<div class="card">
+    <img  style = 'object-fit: cover' src="${element.image}" class="card-img-top" alt="...">
+    <div class="card-body h-25 bg-dark text-light">
       <h5 class="card-title">${element.name}</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button style = 'background-color: red' type = 'submit' class = 'remove' id = '${element.name}' >REMOVE</button>
     </div>
   </div>`
-
   const wishlistContainers = [
     { container: wishlistContainer, count: wishlistContainer.querySelectorAll('div').length },
     { container: wishlistContainer2, count: wishlistContainer2.querySelectorAll('div').length },
   ];
   
+// const imagesArr = document.querySelectorAll('.card-img-top');
+// imagesArr.forEach(image => image.style = object-fit: cover)
+
   const wishlistFewest = wishlistContainers.reduce((prev, curr) => {
     return prev.count < curr.count ? prev : curr;
   });
   wishlistFewest.container.append(div)
 });
+
+
+const remove = document.querySelectorAll('.remove');
+
+
+remove.forEach(removeButton => {
+  removeButton.addEventListener('click', () => {
+    let arr = JSON.parse(localStorage.getItem('wishListData'))
+    let newArr = arr.filter(obj => {
+      if(obj.name !== removeButton.id){
+        return obj;
+      }
+    })
+    localStorage.setItem('wishListData', JSON.stringify(newArr))
+    location.reload()
+  })
+})

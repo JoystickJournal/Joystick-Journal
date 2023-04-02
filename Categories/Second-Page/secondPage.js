@@ -375,8 +375,15 @@ fetch(`https://api.rawg.io/api/games?genres=${genreName}&key=` + config.api)
   document.querySelector('#searchBar').addEventListener('click',(e)=> {
     e.preventDefault()
     const input = document.querySelector('input').value;
+    overlay.classList.add('show');
+    overlay.classList.add('fade-in');
+    let nowTraveling = document.createElement('h3')
+    nowTraveling.textContent = `Searching for: "${input}"`
+    nowTraveling.style.marginBottom="2em"
+    nowTraveling.style.textAlign="center"
+    document.querySelector('.traditional').append(nowTraveling)
     localStorage.setItem('searchResult', JSON.stringify(input))
-    window.location = '../SearchResults/searchResults.html'
+    setTimeout(function(){window.location = '../SearchResults/searchResults.html'},1500)
     handleSearchBar(true,countID);
   })
 

@@ -3,7 +3,25 @@ const cardContainer3 = document.querySelector('#cardContainer3')
 
 const modalBody = document.querySelector('#advanced')
 
+document.querySelector('#closeButton').addEventListener('click', function(){
+  var modal = document.querySelector('#advancedModal');
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+  document.querySelector('body').classList.remove('modal-open');
+  document.querySelector('.modal-backdrop').remove();
+  document.querySelector('body').style.overflow = "visible"
+});
 
+document.querySelector('#advancedModal').addEventListener('click', function(event){
+  if (event.target === this) {
+    var modal = document.querySelector('#advancedModal');
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+    document.querySelector('body').classList.remove('modal-open');
+    document.querySelector('.modal-backdrop').remove();
+    document.querySelector('body').style.overflow = "visible"
+  }
+});
 
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
@@ -324,6 +342,8 @@ const displayGameDetails = async (gameId) => {
 
         const recommendedGameImage = document.createElement("img");
         recommendedGameImage.style.width = "100%";
+        recommendedGameImage.style.cursor = "pointer";
+        recommendedGameImage.style.borderRadius = "20px"
         recommendedGameImage.src = game.background_image;
         recommendedGame.appendChild(recommendedGameImage);
         recommendedGameImage.addEventListener("click", function () {

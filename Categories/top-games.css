@@ -3,12 +3,9 @@
   font-family: 'Bebas Neue', cursive;
 }
 
-/* .carousel-image :hover {
-    backdrop-filter: blur(10px);
-    filter: blur(4px);
-    transition: 0.5s ease;
-
-} */
+.carousel-image:hover {
+  cursor: pointer;
+  }
 
 @font-face {
     font-family: myFirstFont;
@@ -375,3 +372,4 @@ footer {
     position: absolute;
     width: 50px; 
   }
+  

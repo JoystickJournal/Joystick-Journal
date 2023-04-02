@@ -204,7 +204,57 @@ img{
   transition-duration: 0.8s; /* set a longer duration for position change */
 }
 
+
+  
+#overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #001D3D; /* semi-transparent black */
+  z-index: 9999; /* make sure it appears on top of everything else */
+  transition: opacity 0.5s ease-in-out; /* add a transition effect for the fade in/out */
+  opacity: 0; /* initially set the opacity to 0 to hide the overlay */
+  pointer-events: none;
+}
+
+#overlay.show {
+  opacity: 1; /* Increase the opacity to make the overlay visible */
+  pointer-events: auto; /* Make the overlay active when it's visible */
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+/**
+  * Traditional
+  *
+  * @author jh3y
+*/
+.traditional:before {
+  -webkit-animation: spin .5s infinite linear;
+          animation: spin .5s infinite linear;
+  border-radius: 100%;
+  -webkit-box-shadow: inset -2px 0 0 0px var(--primary);
+          box-shadow: inset -2px 0 0 0px var(--primary);
+  border: #FFC300 10px solid;
+  height: 50px;
+  position: absolute;
+  width: 50px; 
+
 h3{
   text-align: center;
   text-shadow: none;
+
 }

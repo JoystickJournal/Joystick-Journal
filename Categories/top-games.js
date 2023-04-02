@@ -501,7 +501,5 @@ card.addEventListener('click', () => {
         }
       })
   }
-    CarouselAppend();
-});
-
-
+    CarouselAppend()
+})

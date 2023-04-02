@@ -125,7 +125,6 @@ canvas{
 }
 
 
-
 #title{
     color: black;
     /* padding-top: 2%;
@@ -142,6 +141,7 @@ canvas{
     align-items: center;
     margin-bottom: 1%;
     margin-top: 1%;
+    margin-bottom: 3%;
 }
 
 #logo{
@@ -204,6 +204,7 @@ img{
   transition-duration: 0.8s; /* set a longer duration for position change */
 }
 
+
   
 #overlay {
   display: flex;
@@ -251,4 +252,9 @@ img{
   height: 50px;
   position: absolute;
   width: 50px; 
+
+h3{
+  text-align: center;
+  text-shadow: none;
+
 }

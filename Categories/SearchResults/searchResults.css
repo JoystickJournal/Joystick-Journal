@@ -49,6 +49,7 @@ iframe {
   margin: 0;
 }
 
+
 /* Solid color overlay */
 .overlay {
   position: fixed;
@@ -75,3 +76,7 @@ iframe {
 .overlay {
   animation: fade-out-overlay 1.4s forwards;
 }
+
+/* #heartAndTextcontainer:hover{
+  background-color: white !important;
+} */

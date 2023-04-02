@@ -38,28 +38,52 @@ const displayGameDetails = async (gameId) => {
 
     const rating = document.createElement("h5");
     rating.textContent = `Rating: ${data.rating}`;
+    rating.style.display = 'flex';
+    rating.style.alignItems = 'center'
 
     const div = document.createElement("div");
     div.style.display = "flex";
     div.style.justifyContent = "space-between";
     div.style.alignItems = "space-between";
     div.style.borderBottom = "2px white solid";
+    div.style.marginTop = '10px'
+
 
     const heart = document.createElement("i");
-    heart.innerHTML = `<i class="fa-solid fa-heart" id="Wishlist"></i>`;
+    heart.innerHTML = `<i class="fa-solid fa-plus" id="Wishlist"></i>`;
+    heart.style.paddingRight = '10px'
+
 
     const heartCaption = document.createElement("h5");
-    heartCaption.textContent = `Click here to add to wishlist!`;
+    heartCaption.textContent = `WISHLIST`;
 
     const heartAndTextcontainer = document.createElement("div");
     heartAndTextcontainer.append(heart, heartCaption);
     heartAndTextcontainer.setAttribute("id", "heartAndTextcontainer");
+    
+
+    heartAndTextcontainer.style.display = 'flex';
+    heartAndTextcontainer.style.border = '1px white solid'
+    heartAndTextcontainer.style.paddingTop = '8px'
+    heartAndTextcontainer.style.paddingLeft = '8px'
+    heartAndTextcontainer.style.paddingRight = '8px'
+    heartAndTextcontainer.style.marginBottom = '10px'
+    heartAndTextcontainer.style.borderRadius = '5px'
 
     div.append(rating, heartAndTextcontainer);
 
     const image = document.createElement("img");
     image.src = data.background_image;
     image.style.width = "100%";
+
+    heartAndTextcontainer.addEventListener('click', () => {
+      const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
+      const name = data.name;
+      const image = data.background_image;
+      wishlist.push({name, image});
+      localStorage.setItem('wishListData', JSON.stringify(wishlist));
+      heartAndTextcontainer.style.backgroundColor = 'green'
+    })
 
     const desc = document.createElement("p");
     desc.style.fontSize = "larger";

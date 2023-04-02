@@ -11,7 +11,8 @@ const isWishlisted = (name, image) => {
   const wishlist = JSON.parse(localStorage.getItem("wishListData")) || [];
   return wishlist.some((game) => game.name === name && game.image === image);
 };
-const addToWishlist = (name, background_image) => {
+const addToWishlist = (name, background_image, button) => {
+  button.style.backgroundColor = 'green'
   const wishlist = JSON.parse(localStorage.getItem("wishListData")) || [];
 
   // Check if the item is already in the wishlist
@@ -20,21 +21,8 @@ const addToWishlist = (name, background_image) => {
   );
 
   // If the item is not in the wishlist, add it and update the button text
-  if (!isAlreadyInWishlist) {
-    wishlist.push({ name, image: background_image });
-    localStorage.setItem("wishListData", JSON.stringify(wishlist));
-    const button = document.querySelector(
-      `button[data-name="${name}"][data-image="${background_image}"]`
-    );
-    button.textContent = "Remove from Wishlist";
-  } else {
-    // If the item is already in the wishlist, update the button text
-    const button = document.querySelector(
-      `button[data-name="${name}"][data-image="${background_image}"]`
-    );
-    button.textContent = "Remove from Wishlist";
+
   }
-};
 
 document.querySelector(
   "#header"
@@ -151,11 +139,12 @@ const renderCard = async (game, count) => {
   `;
 
   collapseID += 1;
-
+  
   {
     /* card.querySelector('.card-text').innerHTML = description; */
   }
 };
+
 
 const displayGameDetails = async (gameId) => {
   try {
@@ -172,24 +161,52 @@ const displayGameDetails = async (gameId) => {
 
     const rating = document.createElement("h5");
     rating.textContent = `Rating: ${data.rating}`;
+    rating.style.display = 'flex';
+    rating.style.alignItems = 'center'
 
     const div = document.createElement("div");
     div.style.display = "flex";
     div.style.justifyContent = "space-between";
     div.style.alignItems = "space-between";
     div.style.borderBottom = "2px white solid";
+    div.style.marginTop = '10px'
+
+    
+    // const wishListDiv = document.createElement('div');
 
     const heart = document.createElement("i");
-    heart.innerHTML = `<i class="fa-solid fa-heart" id="Wishlist"></i>`;
+    heart.innerHTML = `<i class="fa-solid fa-plus" id="Wishlist"></i>`;
+    heart.style.paddingRight = '10px'
+
 
     const heartCaption = document.createElement("h5");
-    heartCaption.textContent = `Click here to add to wishlist!`;
+    heartCaption.textContent = `WISHLIST`;
 
     const heartAndTextcontainer = document.createElement("div");
     heartAndTextcontainer.append(heart, heartCaption);
     heartAndTextcontainer.setAttribute("id", "heartAndTextcontainer");
+    
+
+    heartAndTextcontainer.style.display = 'flex';
+    heartAndTextcontainer.style.border = '1px white solid'
+    heartAndTextcontainer.style.paddingTop = '8px'
+    heartAndTextcontainer.style.paddingLeft = '8px'
+    heartAndTextcontainer.style.paddingRight = '8px'
+    heartAndTextcontainer.style.marginBottom = '10px'
+    heartAndTextcontainer.style.borderRadius = '5px'
 
     div.append(rating, heartAndTextcontainer);
+    
+
+    heartAndTextcontainer.addEventListener('click', () => {
+      const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
+      const name = data.name;
+      const image = data.background_image;
+      wishlist.push({name, image});
+      localStorage.setItem('wishListData', JSON.stringify(wishlist));
+      heartAndTextcontainer.style.backgroundColor = 'green'
+    })
+
 
     const image = document.createElement("img");
     image.src = data.background_image;
@@ -202,6 +219,8 @@ const displayGameDetails = async (gameId) => {
     } else {
       desc.textContent = "No description available.";
     }
+    
+
 
     const DescriptionAlert = document.createElement("h4");
     DescriptionAlert.textContent = "Description";

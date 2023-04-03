@@ -6,7 +6,6 @@ document.querySelector('#closeButton').addEventListener('click', function(){
   modal.style.display = 'none';
   document.querySelector('body').classList.remove('modal-open');
   document.querySelector('.modal-backdrop').remove();
-  document.querySelector('.modal-backdrop').remove();
   document.querySelector('body').style.overflow = "visible"
 });
 const modalBody = document.querySelector("#advanced");
@@ -16,22 +15,13 @@ let moreInfoIcon = document.createElement("div");
 moreInfoIcon.innerHTML = `<i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>`;
 let collapseID = 0;
 
-const isWishlisted = (name, image) => {
-  const wishlist = JSON.parse(localStorage.getItem("wishListData")) || [];
-  return wishlist.some((game) => game.name === name && game.image === image);
-};
-const addToWishlist = (name, background_image, button) => {
+
+const addToWishlist = (name, image,button) => {
+  const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
+  wishlist.push({ name, image });
+  localStorage.setItem('wishListData', JSON.stringify(wishlist));
   button.style.backgroundColor = 'green'
-  const wishlist = JSON.parse(localStorage.getItem("wishListData")) || [];
-
-  // Check if the item is already in the wishlist
-  const isAlreadyInWishlist = wishlist.some(
-    (item) => item.name === name && item.image === background_image
-  );
-
-  // If the item is not in the wishlist, add it and update the button text
-
-  }
+};
 
 document.querySelector(
   "#header"

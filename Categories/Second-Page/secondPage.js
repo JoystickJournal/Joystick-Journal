@@ -46,7 +46,6 @@ const addToWishlist = (name, image) => {
   const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
   wishlist.push({ name, image });
   localStorage.setItem('wishListData', JSON.stringify(wishlist));
-  style.backgroundColor = 'green'
 };
 
 if(genreName == 'board games') {

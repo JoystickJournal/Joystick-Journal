@@ -329,6 +329,7 @@ const displayGameDetails = async (gameId) => {
       const recommendedGamesTitle = document.createElement("h3");
       recommendedGamesTitle.style.marginTop ="50px"
       recommendedGamesTitle.textContent = "Recommended Games";
+      recommendedGamesTitle.style.backgroundColor = "black"
       modalBody.appendChild(recommendedGamesTitle);
 
       const recommendedGamesDiv = document.createElement("div");

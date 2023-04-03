@@ -441,7 +441,7 @@ card.addEventListener('click', () => {
   nowTraveling.style.textAlign="center"
   document.querySelector('.traditional').append(nowTraveling)
   localStorage.setItem('genreName', genre.name);
-  setTimeout(function() {location.href= "Second-page/second-page.html"},2200)
+  setTimeout(function() {location.href= "Second-Page/second-page.html"},2200)
 
 });
     

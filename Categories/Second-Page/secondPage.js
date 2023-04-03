@@ -23,6 +23,8 @@ document.querySelector('#advancedModal').addEventListener('click', function(even
   }
 });
 
+document.querySelector('#header').textContent = `Showing ${localStorage.getItem('genreName')} Games`
+
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
 

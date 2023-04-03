@@ -19,6 +19,9 @@ document.querySelector('#advancedModal').addEventListener('click', function(even
     document.querySelector('body').style.overflow = "visible"
   }
 });
+
+
+
 var modal = document.querySelector('#advancedModal');
 
 const modalBody =document.querySelector('#advanced')
@@ -407,7 +410,6 @@ fetch('https://api.rawg.io/api/genres?key=' + config.api)
     const title = document.createElement('h2');
     title.textContent = genre.name;
     
-
     card.classList.add('card', 'mb-5'); // Add 'mb-5' class for margin
     // card.style.backgroundImage = `url(${genre.image_background})`;
     // card.style.backgroundPosition = "center"
@@ -441,7 +443,7 @@ card.addEventListener('click', () => {
   nowTraveling.style.textAlign="center"
   document.querySelector('.traditional').append(nowTraveling)
   localStorage.setItem('genreName', genre.name);
-  setTimeout(function() {location.href= "Second-Page/second-page.html"},2200)
+  setTimeout(function() {window.location.href= "Second-Page/second-page.html"},2200)
 
 });
     

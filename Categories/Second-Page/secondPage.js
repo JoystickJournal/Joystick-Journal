@@ -25,6 +25,7 @@ document.querySelector('#advancedModal').addEventListener('click', function(even
 
 let genreName = localStorage.getItem('genreName').toLowerCase();
 
+
 let moreInfoIcon = document.createElement('div')
 
 moreInfoIcon.innerHTML = `<i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>`
@@ -37,7 +38,7 @@ let pageCounter = 1
 
 let isFetchingData = false;
 
-// console.log(genreName)
+console.log(genreName)
 
 const addToWishlist = (name, image) => {
   const wishlist = JSON.parse(localStorage.getItem('wishListData')) || [];
@@ -51,6 +52,9 @@ if(genreName == 'board games') {
 }
 if(genreName == 'rpg') {
   genreName = 'role-playing-games-rpg'
+}
+if(genreName == 'massively multiplayer') {
+  genreName = 'massively-multiplayer'
 }
 
 const fetchGameData = async (id) => {
